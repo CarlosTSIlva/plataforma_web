@@ -27,7 +27,7 @@ const optionsStatusAssociado = [
   { value: "4", label: "Cancelado" },
 ];
 
-export default function Associado(props) {
+export default function PostoTrabalho(props) {
   const [associados, setAssociados] = useState([]);
   const [associadosSearch, setAssociadosSearch] = useState([]);
   const [optionsUnidadeHabitacional, setOptionsUnidadeHabitacional] = useState(
@@ -81,7 +81,7 @@ export default function Associado(props) {
   function associadoEdit(e, id = 0, mode = "insert") {
     e.preventDefault();
     props.history.push({
-      pathname: "/console/associado/edit",
+      pathname: "/console/posto_trabalho/edit",
       state: { id: id, mode: mode },
     });
   }
@@ -195,7 +195,7 @@ export default function Associado(props) {
         <Col xs="12" lg="12">
           <Card>
             <CardHeader>
-              <i className="fa fa-align-justify"></i> Conta
+              <i className="fa fa-align-justify"></i> Posto de trabalho
               <div className="card-header-actions">
                 <Button
                   className="card-header-action btn-setting"
@@ -203,7 +203,7 @@ export default function Associado(props) {
                     associadoEdit(e);
                   }}
                 >
-                  <i className="icon-note" /> Nova Conta
+                  <i className="icon-note" /> Nova Posto de trabalho
                 </Button>
               </div>
             </CardHeader>
@@ -219,7 +219,7 @@ export default function Associado(props) {
                       </InputGroupAddon>
                       <Input
                         type="text"
-                        placeholder="Consulte a conta..."
+                        placeholder="Consulte o seu posto de trabalho..."
                         onChange={(e) => handlePesquisa(e.target.value)}
                       />
                     </InputGroup>
@@ -229,7 +229,7 @@ export default function Associado(props) {
               <Row>
                 <Col xs="12" sm="8" md="8">
                   <FormGroup>
-                    <Label>Unidade Habitacional</Label>
+                    <Label>Nome</Label>
                     <Select
                       options={optionsUnidadeHabitacional}
                       isClearable={true}
@@ -241,28 +241,7 @@ export default function Associado(props) {
                         ...theme,
                         colors: {
                           ...theme.colors,
-                          primary25: "#219653",
-                          primary: "#6f2da8",
-                        },
-                      })}
-                    />
-                  </FormGroup>
-                </Col>
-                <Col xs="12" sm="6" md="4">
-                  <FormGroup>
-                    <Label>Status</Label>
-                    <Select
-                      options={optionsStatusAssociado}
-                      isClearable={true}
-                      placeholder="Selecione..."
-                      onChange={(selectedOption) => {
-                        setStatusAssociado(selectedOption);
-                      }}
-                      theme={(theme) => ({
-                        ...theme,
-                        colors: {
-                          ...theme.colors,
-                          primary25: "#219653",
+                          primary25: "#b47ede",
                           primary: "#6f2da8",
                         },
                       })}
@@ -274,9 +253,7 @@ export default function Associado(props) {
                 <thead className="thead-light">
                   <tr className="text-left">
                     <th>Nome</th>
-                    <th>Unidade Habitacional</th>
-                    <th>Tipo</th>
-                    <th>Status</th>
+                    <th>Localização</th>
                     <th>Ações</th>
                   </tr>
                 </thead>

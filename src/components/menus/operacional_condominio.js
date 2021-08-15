@@ -45,7 +45,7 @@ export default {
       icon: "icon-arrow-right",
     },
     {
-      name: "Conta",
+      name: "2",
       url: "/console/associado",
       icon: "icon-people",
     },

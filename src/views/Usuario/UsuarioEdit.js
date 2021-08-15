@@ -69,7 +69,7 @@ const formValidateInitialState = {
 };
 var _optionsUnidadeHabitacional = [];
 
-export default function AssociadoEdit(props) {
+export default function UsuarioEdit(props) {
   const [associado, setAssociado] = useState(associadoInitialState);
   const [formValidate, setFormValidate] = useState(formValidateInitialState);
   const [optionsUnidadeHabitacional, setOptionsUnidadeHabitacional] = useState(
@@ -247,7 +247,7 @@ export default function AssociadoEdit(props) {
       const response = await api.post(url, data);
       if (response.data.status === "OK") {
         setAssociado(associadoInitialState);
-        props.history.push({ pathname: "/console/associado" });
+        props.history.push({ pathname: "/console/posto_trabalho" });
       } else {
         window.alert(response.data.message);
         return;
@@ -275,7 +275,7 @@ export default function AssociadoEdit(props) {
       const response = await api.post(url, data);
       if (response.data.status === "OK") {
         setAssociado(associadoInitialState);
-        props.history.push({ pathname: "/console/associado" });
+        props.history.push({ pathname: "/console/posto_trabalho" });
       } else {
         window.alert(response.data.message);
         return;
@@ -366,53 +366,41 @@ export default function AssociadoEdit(props) {
             </CardHeader>
             <CardBody>
               <Row>
-                <Col xs="12" sm="6" md="4">
+                <Col xs="12" md="4">
                   <FormGroup>
-                    <Label>Unidade</Label>
-                    <Select
-                      placeholder="Selecione..."
-                      options={optionsUnidadeHabitacional}
-                      value={optionUnidadeHabitacional}
-                      onChange={(selectedOption) => {
-                        setUnidadeHabitacional(selectedOption);
+                    <Label>Username</Label>
+                    <Input
+                      type="text"
+                      placeholder="Preencha o username."
+                      onChange={(e) => {
+                        setAssociado({
+                          ...associado,
+                          usuario: {
+                            ...associado.usuario,
+                            username: e.target.value,
+                          },
+                        });
                       }}
-                      theme={(theme) => ({
-                        ...theme,
-                        colors: {
-                          ...theme.colors,
-                          primary25: "#219653",
-                          primary: "#6f2da8",
-                        },
-                      })}
+                      value={
+                        associado?.usuario?.username
+                          ? associado.usuario.username
+                          : ""
+                      }
+                      onBlur={() => {
+                        setFormValidate({
+                          ...formValidate,
+                          nome: validatefield(
+                            "nome",
+                            associado?.usuario?.username?.trim()
+                          ),
+                        });
+                      }}
+                      invalid={formValidate.username ? true : false}
                     />
-                    <FormText>(*) Campo obrigatório.</FormText>
+                    <FormFeedback>{formValidate.username}</FormFeedback>
                   </FormGroup>
                 </Col>
-                <Col xs="12" sm="6" md="4">
-                  <FormGroup>
-                    <Label>Tipo</Label>
-                    <Select
-                      placeholder="Selecione..."
-                      options={optionsTipoAssociado}
-                      value={optionTipoAssociado}
-                      onChange={(selectedOption) => {
-                        setTipoAssociado(selectedOption);
-                      }}
-                      theme={(theme) => ({
-                        ...theme,
-                        colors: {
-                          ...theme.colors,
-                          primary25: "#219653",
-                          primary: "#6f2da8",
-                        },
-                      })}
-                    />
-                    <FormText>(*) Campo obrigatório.</FormText>
-                  </FormGroup>
-                </Col>
-              </Row>
-              <Row>
-                <Col xs="12" md="8">
+                <Col xs="12" md="4">
                   <FormGroup>
                     <Label>Nome</Label>
                     <Input
@@ -568,6 +556,29 @@ export default function AssociadoEdit(props) {
                 </Col>
               </Row>
               <Row>
+                <Col xs="12" md="4">
+                  <FormGroup>
+                    <Label>Cpf</Label>
+                    <Input
+                      type="text"
+                      id="descricao"
+                      placeholder="Preencha o cpf..."
+                      onChange={(e) => {
+                        setAssociado({
+                          ...associado,
+                          usuario: {
+                            ...associado.usuario,
+                            cpf: e.target.value,
+                          },
+                        });
+                      }}
+                      value={
+                        associado?.usuario?.cpf ? associado.usuario.cpf : ""
+                      }
+                      required
+                    />
+                  </FormGroup>
+                </Col>
                 <Col xs="12" sm="6" md="4">
                   <FormGroup>
                     <Label>Status</Label>
@@ -582,7 +593,7 @@ export default function AssociadoEdit(props) {
                         ...theme,
                         colors: {
                           ...theme.colors,
-                          primary25: "#219653",
+                          primary25: "#b47ede",
                           primary: "#6f2da8",
                         },
                       })}
@@ -606,7 +617,7 @@ export default function AssociadoEdit(props) {
                         ...theme,
                         colors: {
                           ...theme.colors,
-                          primary25: "#219653",
+                          primary25: "#b47ede",
                           primary: "#6f2da8",
                         },
                       })}
@@ -615,46 +626,7 @@ export default function AssociadoEdit(props) {
                 </Col>
               </Row>
               <Row>
-                <Col xs="12" sm="6" md="4">
-                  <FormGroup>
-                    <Label>Usuário</Label>
-                    <Input
-                      type="text"
-                      placeholder="Preencha o usuário..."
-                      onChange={(e) => {
-                        setAssociado({
-                          ...associado,
-                          usuario: {
-                            ...associado.usuario,
-                            username: e.target.value,
-                          },
-                        });
-                      }}
-                      value={
-                        associado?.usuario?.username
-                          ? associado.usuario.username
-                          : ""
-                      }
-                      disabled={mode === "insert" ? false : true}
-                      onBlur={() => {
-                        handleUsername(associado?.usuario?.username);
-                      }}
-                      invalid={formValidate.username ? true : false}
-                      valid={
-                        mode === "update"
-                          ? false
-                          : formValidate.username_invalid
-                          ? false
-                          : true
-                      }
-                    />
-                    <FormFeedback valid>
-                      Legal! este Usuário está disponível.
-                    </FormFeedback>
-                    <FormFeedback>{formValidate.username}</FormFeedback>
-                  </FormGroup>
-                </Col>
-                <Col xs="12" sm="6" md="4">
+                <Col xs="12" sm="6" md="6">
                   {mode === "insert" ? (
                     <FormGroup>
                       <Label>Senha</Label>
@@ -690,7 +662,7 @@ export default function AssociadoEdit(props) {
                     </FormGroup>
                   ) : null}
                 </Col>
-                <Col xs="12" sm="6" md="4">
+                <Col xs="12" sm="6" md="6">
                   {mode === "insert" ? (
                     <FormGroup>
                       <Label>Confirmação de Senha</Label>
