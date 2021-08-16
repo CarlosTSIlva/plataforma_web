@@ -81,7 +81,7 @@ export default function Usuario(props) {
   function associadoEdit(e, id = 0, mode = "insert") {
     e.preventDefault();
     props.history.push({
-      pathname: "/console/posto_trabalho/edit",
+      pathname: "/console/usuario/edit",
       state: { id: id, mode: mode },
     });
   }
@@ -241,8 +241,8 @@ export default function Usuario(props) {
                         ...theme,
                         colors: {
                           ...theme.colors,
-                          primary25: "#b47ede",
-                          primary: "#6f2da8",
+                          primary25: "#54ff9d",
+                          primary: "#219653",
                         },
                       })}
                     />
@@ -262,8 +262,8 @@ export default function Usuario(props) {
                         ...theme,
                         colors: {
                           ...theme.colors,
-                          primary25: "#b47ede",
-                          primary: "#6f2da8",
+                          primary25: "#54ff9d",
+                          primary: "#219653",
                         },
                       })}
                     />

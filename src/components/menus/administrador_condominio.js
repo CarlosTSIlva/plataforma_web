@@ -34,6 +34,11 @@ export default {
       url: "/console/posto_trabalho",
       icon: "icon-people",
     },
+    {
+      name: "Estabelecimento",
+      url: "/console/estabelecimento",
+      icon: "icon-people",
+    },
     // {
     //   name: "Encomenda",
     //   url: "/console/encomenda",

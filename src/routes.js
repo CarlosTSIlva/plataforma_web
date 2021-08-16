@@ -43,10 +43,21 @@ const AreaComumView = React.lazy(() =>
 const Cliente = React.lazy(() => import("./views/Cliente/Cliente"));
 const ClienteEdit = React.lazy(() => import("./views/Cliente/ClienteEdit"));
 const ClienteView = React.lazy(() => import("./views/Cliente/ClienteView"));
-const Visita = React.lazy(() => import("./views/Visita/Visita"));
-const VisitaEdit = React.lazy(() => import("./views/Visita/VisitaEdit"));
-const VisitaView = React.lazy(() => import("./views/Visita/VisitaView"));
 const Condominio = React.lazy(() => import("./views/Condominio/Condominio"));
+
+const Estabelecimento = React.lazy(() =>
+  import("./views/Estabelecimento/Estabelecimento")
+);
+const EstabelecimentoEdit = React.lazy(() =>
+  import("./views/Estabelecimento/EstabelecimentoEdit")
+);
+const EstabelecimentoView = React.lazy(() =>
+  import("./views/Estabelecimento/EstabelecimentoView")
+);
+const Servico = React.lazy(() => import("./views/Sevico/Servico"));
+const ServicoEdit = React.lazy(() => import("./views/Sevico/ServicoEdit"));
+const ServicoView = React.lazy(() => import("./views/Sevico/ServicoView"));
+
 const CondominioEdit = React.lazy(() =>
   import("./views/Condominio/CondominioEdit")
 );
@@ -234,19 +245,6 @@ const routes = [
     name: "Visualização",
     component: ClienteView,
   },
-  { path: "/console/visita", exact: true, name: "Visita", component: Visita },
-  {
-    path: "/console/visita/edit",
-    exact: true,
-    name: "Edição",
-    component: VisitaEdit,
-  },
-  {
-    path: "/console/visita/view",
-    exact: true,
-    name: "Visualização",
-    component: VisitaView,
-  },
   {
     path: "/console/condominio",
     exact: true,
@@ -264,6 +262,42 @@ const routes = [
     exact: true,
     name: "Visualização",
     component: CondominioView,
+  },
+  {
+    path: "/console/servico",
+    exact: true,
+    name: "Condomínio",
+    component: Servico,
+  },
+  {
+    path: "/console/servico/edit",
+    exact: true,
+    name: "Edição",
+    component: ServicoEdit,
+  },
+  {
+    path: "/console/servico/view",
+    exact: true,
+    name: "Visualização",
+    component: ServicoView,
+  },
+  {
+    path: "/console/estabelecimento",
+    exact: true,
+    name: "Condomínio",
+    component: Estabelecimento,
+  },
+  {
+    path: "/console/estabelecimento/edit",
+    exact: true,
+    name: "Edição",
+    component: EstabelecimentoEdit,
+  },
+  {
+    path: "/console/estabelecimento/view",
+    exact: true,
+    name: "Visualização",
+    component: EstabelecimentoView,
   },
   {
     path: "/console/unidadehabitacional",

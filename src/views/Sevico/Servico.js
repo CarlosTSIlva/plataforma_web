@@ -27,7 +27,7 @@ const optionsStatusAssociado = [
   { value: "4", label: "Cancelado" },
 ];
 
-export default function Associado(props) {
+export default function Servico(props) {
   const [associados, setAssociados] = useState([]);
   const [associadosSearch, setAssociadosSearch] = useState([]);
   const [optionsUnidadeHabitacional, setOptionsUnidadeHabitacional] = useState(
@@ -81,7 +81,7 @@ export default function Associado(props) {
   function associadoEdit(e, id = 0, mode = "insert") {
     e.preventDefault();
     props.history.push({
-      pathname: "/console/associado/edit",
+      pathname: "/console/usuario/edit",
       state: { id: id, mode: mode },
     });
   }

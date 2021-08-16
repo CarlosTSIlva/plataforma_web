@@ -348,7 +348,7 @@ export default function Encomenda(props) {
                         colors: {
                           ...theme.colors,
                           primary25: "#219653",
-                          primary: "#6f2da8",
+                          primary: "#219653",
                         },
                       })}
                     />
@@ -369,7 +369,7 @@ export default function Encomenda(props) {
                         colors: {
                           ...theme.colors,
                           primary25: "#219653",
-                          primary: "#6f2da8",
+                          primary: "#219653",
                         },
                       })}
                     />

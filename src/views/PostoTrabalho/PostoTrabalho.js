@@ -241,8 +241,8 @@ export default function PostoTrabalho(props) {
                         ...theme,
                         colors: {
                           ...theme.colors,
-                          primary25: "#b47ede",
-                          primary: "#6f2da8",
+                          primary25: "#54ff9d",
+                          primary: "#219653",
                         },
                       })}
                     />
