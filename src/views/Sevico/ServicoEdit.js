@@ -324,7 +324,7 @@ export default function ServicoEdit(props) {
           <Card>
             <CardHeader>
               <i className="fa fa-edit"></i>
-              <strong>Conta</strong>
+              <strong>Serviço</strong>
             </CardHeader>
             <CardBody>
               <Row>
@@ -424,7 +424,7 @@ export default function ServicoEdit(props) {
                     <Input
                       type="text"
                       id="descricao"
-                      placeholder="Preencha o controle_post..."
+                      placeholder="Preencha o controle..."
                       onChange={(e) => {
                         setAssociado({
                           ...associado,
@@ -452,7 +452,7 @@ export default function ServicoEdit(props) {
                 >
                   <FormGroup check>
                     <Label check>
-                      <Input type="checkbox" id="checkbox2" /> Check me out
+                      <Input type="checkbox" id="checkbox2" /> Posto
                     </Label>
                   </FormGroup>
                 </Col>

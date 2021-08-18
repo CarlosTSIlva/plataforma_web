@@ -360,7 +360,7 @@ export default function EstabelecimentoEdit(props) {
           <Card>
             <CardHeader>
               <i className="fa fa-edit"></i>
-              <strong>Conta</strong>
+              <strong>Estabelecimento</strong>
             </CardHeader>
             <CardBody>
               <Row>
