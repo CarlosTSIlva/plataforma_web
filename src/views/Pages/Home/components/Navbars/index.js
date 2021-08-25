@@ -10,7 +10,7 @@ import {
   NavLink,
   Nav,
   Container,
-  UncontrolledTooltip  
+  UncontrolledTooltip,
 } from "reactstrap";
 
 function IndexNavbar() {
@@ -48,10 +48,13 @@ function IndexNavbar() {
           }}
         />
       ) : null}
-      <Navbar className={"fixed-top " + navbarColor + " bg-light-purple"} expand="lg">
+      <Navbar
+        className={"fixed-top " + navbarColor + " bg-light-purple"}
+        expand="lg"
+      >
         <Container>
           <div className="navbar-translate">
-            <NavbarBrand href=""   id="navbar-brand">
+            <NavbarBrand href="" id="navbar-brand">
               Caracol
             </NavbarBrand>
             <UncontrolledTooltip target="#navbar-brand">
@@ -84,21 +87,27 @@ function IndexNavbar() {
                   to="/console"
                   id="upgrade-to-pro"
                   tag={Link}
-                >  
-                  <span className='text-primary'>               
-                  <i className="icon-login icons"></i>
-                  {' '} Área Administrativa</span>                  
+                >
+                  <span className="text-primary">
+                    <i className="icon-login icons"></i> Área Administrativa
+                  </span>
                 </Button>
                 <UncontrolledTooltip target="#upgrade-to-pro">
                   Área Administrativa
                 </UncontrolledTooltip>
               </NavItem>
               <NavItem>
-                <NavLink
-                  href="#"
-                  target="_blank"
-                  id="twitter-tooltip"
-                >
+                <NavLink href="/#/contato">
+                  <h6>Contato</h6>
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="/#/solucao">
+                  <h6>Planos</h6>
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="#" target="_blank" id="twitter-tooltip">
                   <i className="fa fa-twitter icons font-2xl"></i>
                   <p className="d-lg-none d-xl-none">Twitter</p>
                 </NavLink>
@@ -107,11 +116,7 @@ function IndexNavbar() {
                 </UncontrolledTooltip>
               </NavItem>
               <NavItem>
-                <NavLink
-                  href="#"
-                  target="_blank"
-                  id="facebook-tooltip"
-                >
+                <NavLink href="#" target="_blank" id="facebook-tooltip">
                   <i className="fa fa-facebook-square icons font-2xl"></i>
                   <p className="d-lg-none d-xl-none">Facebook</p>
                 </NavLink>
@@ -120,11 +125,7 @@ function IndexNavbar() {
                 </UncontrolledTooltip>
               </NavItem>
               <NavItem>
-                <NavLink
-                  href="#"
-                  target="_blank"
-                  id="instagram-tooltip"
-                >
+                <NavLink href="#" target="_blank" id="instagram-tooltip">
                   <i className="fa fa-instagram icons font-2xl"></i>
                   <p className="d-lg-none d-xl-none">Instagram</p>
                 </NavLink>

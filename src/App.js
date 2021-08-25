@@ -22,6 +22,10 @@ const Page404 = React.lazy(() => import("./views/Pages/Page404"));
 const ResetPassword = React.lazy(() => import("./views/Pages/ResetPassword"));
 const ForgotPassword = React.lazy(() => import("./views/Pages/ForgotPassword"));
 const RegistroVisita = React.lazy(() => import("./views/Pages/RegistroVisita"));
+const Contato = React.lazy(() => import("./views/Contato"));
+const RegistroParceiro = React.lazy(() => import("./views/RegistroParceiro"));
+const RegistroPlano = React.lazy(() => import("./views/RegistroPlano/"));
+const Solucao = React.lazy(() => import("./views/Solucao"));
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
@@ -57,6 +61,30 @@ class App extends Component {
                   path="/"
                   name="Home"
                   render={(props) => <Home {...props} />}
+                />
+                <Route
+                  exact
+                  path="/contato"
+                  name="Contato"
+                  render={(props) => <Contato {...props} />}
+                />
+                <Route
+                  exact
+                  path="/registro"
+                  name="Home"
+                  render={(props) => <RegistroParceiro {...props} />}
+                />
+                <Route
+                  exact
+                  path="/RegistroPlano"
+                  name="Home"
+                  render={(props) => <RegistroPlano {...props} />}
+                />
+                <Route
+                  exact
+                  path="/solucao"
+                  name="Home"
+                  render={(props) => <Solucao {...props} />}
                 />
                 <Route
                   exact
