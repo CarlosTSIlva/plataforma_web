@@ -81,7 +81,7 @@ export default function Servico(props) {
   function associadoEdit(e, id = 0, mode = "insert") {
     e.preventDefault();
     props.history.push({
-      pathname: "/console/usuario/edit",
+      pathname: "/console/servico/edit",
       state: { id: id, mode: mode },
     });
   }
@@ -203,7 +203,7 @@ export default function Servico(props) {
                     associadoEdit(e);
                   }}
                 >
-                  <i className="icon-note" /> Nova Conta
+                  <i className="icon-note" /> Nova serviço
                 </Button>
               </div>
             </CardHeader>
@@ -274,9 +274,7 @@ export default function Servico(props) {
                 <thead className="thead-light">
                   <tr className="text-left">
                     <th>Nome</th>
-                    <th>Unidade Habitacional</th>
-                    <th>Tipo</th>
-                    <th>Status</th>
+                    <th>Duração</th>
                     <th>Ações</th>
                   </tr>
                 </thead>
