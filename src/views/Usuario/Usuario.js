@@ -36,53 +36,18 @@ export default function Usuario(props) {
   const [optionUnidadeHabitacional, setUnidadeHabitacional] = useState({});
   const [optionStatusAssociado, setStatusAssociado] = useState({});
 
-  const user_info = useSelector((state) => state.user);
-  api.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem(
-    "crcl-web-token"
-  )}`;
-
-  useEffect(() => {
-    getUnidadeHabitacional();
-    return () => {};
-  }, []);
-
-  useEffect(() => {
-    getAssociado();
+  useEffect(async () => {
+    await getAssociado();
   }, [optionStatusAssociado]);
 
-  useEffect(() => {
-    getAssociado();
+  useEffect(async () => {
+    await getAssociado();
   }, [optionUnidadeHabitacional]);
-
-  async function getUnidadeHabitacional() {
-    try {
-      const url = `/condominio/${user_info.contas[0].unidade.condominio.id}/unidade`;
-      const response = await api.get(url);
-      const options = [];
-      response.data.data.map((d, i) => {
-        if (d.tipo.id === 0) {
-          options.push({
-            value: d.id,
-            label: `${d.quadra_bloco}`,
-            type: "Administracao",
-          });
-        } else {
-          options.push({
-            value: d.id,
-            label: `QB ${d.quadra_bloco} - CA ${d.casa_apto}`,
-            type: "Residencial",
-          });
-        }
-      });
-      setOptionsUnidadeHabitacional(options);
-    } catch (e) {}
-  }
 
   function associadoEdit(e, id = 0, mode = "insert") {
     e.preventDefault();
     props.history.push({
       pathname: `/console/usuario/edit/${id}`,
-      state: { id: id, mode: mode },
     });
   }
 

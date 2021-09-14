@@ -41,15 +41,9 @@ var _optionsUnidadeHabitacional = [];
 export default function UsuarioEdit(props) {
   const [associado, setAssociado] = useState(associadoInitialState);
   const [formValidate, setFormValidate] = useState(formValidateInitialState);
-  const [optionsUnidadeHabitacional, setOptionsUnidadeHabitacional] = useState(
-    []
-  );
-  const [optionsTipoAssociado, setOptionsTipoAssociado] = useState([]);
-  const [optionTipoAssociado, setTipoAssociado] = useState({});
-  const [optionUnidadeHabitacional, setUnidadeHabitacional] = useState({});
+
   const [optionStatusAssociado, setStatusAssociado] = useState({});
   const [optionSexo, setSexo] = useState({});
-  const [optionAssociadoTitular, setAssociadoTitular] = useState({});
   let { id } = useParams();
 
   var mode =
@@ -57,38 +51,18 @@ export default function UsuarioEdit(props) {
       ? props.location.state.mode
       : "insert";
 
-  const user_info = useSelector((state) => state.user);
-  api.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem(
-    "crcl-web-token"
-  )}`;
-
-  useEffect(() => {
-    loadPage();
+  useEffect(async () => {
+    await loadPage();
     return () => {};
   }, []);
 
-  async function loadPage() {
-    await getUnidadeHabitacional();
+  function loadPage() {
     if (!id) {
       getAssociado();
       setFormValidate({});
     } else {
       mode = "insert";
     }
-  }
-
-  async function getUnidadeHabitacional() {
-    try {
-      const url = `/usuario/${id}/`;
-      const response = await api.get(url);
-      console.log("resposne ", response.data);
-      setAssociado({
-        ...associado,
-        usuario: {
-          ...response.data.data,
-        },
-      });
-    } catch (e) {}
   }
 
   async function getAssociado() {
@@ -102,10 +76,10 @@ export default function UsuarioEdit(props) {
   }
 
   async function salvarAssociado() {
-    if (!id) {
-      createAssociado();
-    } else {
+    if (id) {
       updateAssociado();
+    } else {
+      createAssociado();
     }
   }
 

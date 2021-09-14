@@ -32,32 +32,19 @@ export default function Usuario(props) {
   const [associados, setAssociados] = useState([]);
   const [associadosSearch, setAssociadosSearch] = useState([]);
 
-  const [optionUnidadeHabitacional, setUnidadeHabitacional] = useState({});
-  const [optionStatusAssociado, setStatusAssociado] = useState({});
-
-  const user_info = useSelector((state) => state.user);
-  api.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem(
-    "crcl-web-token"
-  )}`;
-  useEffect(async () => {
-    await getAssociado();
-  }, [optionStatusAssociado]);
-
-  useEffect(async () => {
-    await getAssociado();
-  }, [optionUnidadeHabitacional]);
+  useEffect(() => {
+    getAssociado();
+  }, []);
 
   function associadoEdit(e, id = 0, mode = "insert") {
     e.preventDefault();
-    console.log("ididdd", id);
-    if (!id) {
+    if (id) {
       props.history.push({
-        pathname: "/console/cliente/edit",
-        state: { id: id, mode: mode },
+        pathname: `/console/cliente/edit/${id}`,
       });
     } else {
       props.history.push({
-        pathname: `/console/cliente/edit/${id}`,
+        pathname: "/console/cliente/edit",
       });
     }
   }
@@ -72,7 +59,7 @@ export default function Usuario(props) {
   async function deleteAssociado(id) {
     try {
       const url = "/cliente/" + id;
-      const response = await api.delete(url);
+      await api.delete(url);
       getAssociado();
     } catch (e) {}
   }
