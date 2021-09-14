@@ -111,6 +111,12 @@ const routes = [
     component: UsuarioEdit,
   },
   {
+    path: "/console/usuario/edit/:id",
+    exact: true,
+    name: "Edição",
+    component: UsuarioEdit,
+  },
+  {
     path: "/console/usuario/view",
     exact: true,
     name: "Visualização",

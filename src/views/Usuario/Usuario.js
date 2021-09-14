@@ -81,29 +81,21 @@ export default function Usuario(props) {
   function associadoEdit(e, id = 0, mode = "insert") {
     e.preventDefault();
     props.history.push({
-      pathname: "/console/usuario/edit",
+      pathname: `/console/usuario/edit/${id}`,
       state: { id: id, mode: mode },
-    });
-  }
-
-  function associadoView(e, id) {
-    e.preventDefault();
-    props.history.push({
-      pathname: "/console/associado/view",
-      state: { id: id },
     });
   }
 
   function associadoDelete(e, id) {
     e.preventDefault();
-    if (window.confirm("Deseja realmente cancelar esta Conta ?")) {
+    if (window.confirm("Deseja realmente deletar este usuario ?")) {
       deleteAssociado(id);
     }
   }
 
   async function deleteAssociado(id) {
     try {
-      const url = "/conta/" + id;
+      const url = "/usuario/" + id;
       const response = await api.delete(url);
       getAssociado();
     } catch (e) {}
@@ -111,52 +103,19 @@ export default function Usuario(props) {
 
   async function getAssociado() {
     try {
-      const status = optionStatusAssociado ? optionStatusAssociado.value : null;
-      const unidade = optionUnidadeHabitacional
-        ? optionUnidadeHabitacional.value
-        : null;
-      let url = `/condominio/${user_info.contas[0].unidade.condominio.id}/conta?search=1`;
-      if (status) {
-        url = `${url}&status=${status}`;
-      }
-      if (unidade) {
-        url = `${url}&unidade=${unidade}`;
-      }
+      let url = `/usuario/all`;
       const response = await api.get(url);
-      setAssociados(response.data.data);
-      setAssociadosSearch(response.data.data);
+      console.log("dados ", response.data);
+      setAssociados(response.data);
+      setAssociadosSearch(response.data);
     } catch (e) {}
   }
 
   function renderAssociados() {
     return associadosSearch?.map((d, i) => (
       <tr key={i}>
-        <td>{d.usuario.nome}</td>
-        <td>
-          {d.unidade.tipo.id === 0 ? (
-            <h5 className="lead">{`${d.unidade.quadra_bloco}`}</h5>
-          ) : (
-            <h5 className="lead">{`QB ${d.unidade.quadra_bloco} CA ${d.unidade.casa_apto}`}</h5>
-          )}
-        </td>
-        <td>{d.tipo.descricao}</td>
-        <td>
-          {d.status.id !== 2 ? (
-            d.status.id === 4 ? (
-              <Badge className="mr-1" color="danger">
-                {d.status.descricao}
-              </Badge>
-            ) : (
-              <Badge className="mr-1" color="warning">
-                {d.status.descricao}
-              </Badge>
-            )
-          ) : (
-            <Badge className="mr-1" color="success">
-              {d.status.descricao}
-            </Badge>
-          )}
-        </td>
+        <td>{d.nome}</td>
+        <td></td>
         <td>
           <Button
             color="info"
@@ -195,7 +154,7 @@ export default function Usuario(props) {
         <Col xs="12" lg="12">
           <Card>
             <CardHeader>
-              <i className="fa fa-align-justify"></i> Conta
+              <i className="fa fa-align-justify"></i> Usuario
               <div className="card-header-actions">
                 <Button
                   className="card-header-action btn-setting"
@@ -203,7 +162,7 @@ export default function Usuario(props) {
                     associadoEdit(e);
                   }}
                 >
-                  <i className="icon-note" /> Nova Conta
+                  <i className="icon-note" /> Novo usuario
                 </Button>
               </div>
             </CardHeader>
@@ -251,6 +210,7 @@ export default function Usuario(props) {
                 <Col xs="12" sm="6" md="4">
                   <FormGroup>
                     <Label>Status</Label>
+                    <Label></Label>
                     <Select
                       options={optionsStatusAssociado}
                       isClearable={true}
@@ -274,10 +234,8 @@ export default function Usuario(props) {
                 <thead className="thead-light">
                   <tr className="text-left">
                     <th>Nome</th>
-                    <th>Unidade Habitacional</th>
-                    <th>Tipo</th>
-                    <th>Status</th>
-                    <th>Ações</th>
+                    <th></th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>{renderAssociados()}</tbody>

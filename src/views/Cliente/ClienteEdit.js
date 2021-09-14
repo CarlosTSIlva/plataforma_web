@@ -17,19 +17,8 @@ import {
 } from "reactstrap";
 import { useHistory } from "react-router-dom";
 import { useParams } from "react-router";
+
 import api from "../../services/api";
-
-const optionsTipoAssociadoResidencial = [
-  { value: 1, label: "Morador Titular" },
-  { value: 2, label: "Morador com Permissão", type: "Dependente" },
-  { value: 3, label: "Morador sem Permissão", type: "Dependente" },
-];
-
-const optionsTipoAssociadoAdministracao = [
-  { value: 4, label: "Sindico / Administrador" },
-  { value: 5, label: "Administrativo" },
-  { value: 6, label: "Operacional" },
-];
 
 const associadoInitialState = {};
 const formValidateInitialState = {
@@ -38,50 +27,13 @@ const formValidateInitialState = {
   username_invalid: true,
   email_invalid: true,
 };
-var _optionsUnidadeHabitacional = [];
 
 export default function ClienteEdit(props) {
   const [associado, setAssociado] = useState(associadoInitialState);
   const [formValidate, setFormValidate] = useState(formValidateInitialState);
-  const [optionsTipoAssociado, setOptionsTipoAssociado] = useState([]);
-  const [optionTipoAssociado, setTipoAssociado] = useState({});
-  const [optionUnidadeHabitacional, setUnidadeHabitacional] = useState({});
+
   let { id } = useParams();
-  let history = useHistory();
-  var mode =
-    props.location.state && props.location.state.id
-      ? props.location.state.mode
-      : "insert";
-
-  useEffect(() => {
-    loadPage();
-    return () => {};
-  }, []);
-
-  async function loadPage() {
-    if (mode === "update" && id) {
-      setFormValidate({});
-    } else {
-      mode = "insert";
-    }
-  }
-
-  useEffect(() => {
-    setTipoAssociado({});
-    if (
-      optionUnidadeHabitacional &&
-      optionUnidadeHabitacional.type === "Administracao"
-    ) {
-      setOptionsTipoAssociado(optionsTipoAssociadoAdministracao);
-    } else if (
-      optionUnidadeHabitacional &&
-      optionUnidadeHabitacional.type === "Residencial"
-    ) {
-      setOptionsTipoAssociado(optionsTipoAssociadoResidencial);
-    } else {
-      setOptionsTipoAssociado([]);
-    }
-  }, [optionUnidadeHabitacional]);
+  const history = useHistory();
 
   useEffect(async () => {
     if (id) {
@@ -92,26 +44,23 @@ export default function ClienteEdit(props) {
 
   const handleCreate = async () => {
     try {
+      const {
+        atualizado_dt,
+        atualizado_por,
+        criado_dt,
+        criado_por,
+        ...rest
+      } = associado.usuario;
       if (id) {
-        console.log("associado", associado);
-        const {
-          atualizado_dt,
-          atualizado_por,
-          criado_dt,
-          criado_por,
-          ...rest
-        } = associado.usuario;
-        const response = await api.post("/cliente/update", rest);
-        console.log(response.data);
+        const resposne = await api.post("/cliente/update", rest);
+        history.push("/console/cliente");
       } else {
-        console.log("associado", associado);
-        const response = await api.post("/cliente/create", associado.usuario);
-        console.log(response.data);
+        await api.post("/cliente/create", rest);
+        history.push("/console/cliente");
       }
     } catch (error) {
-      props.history.push({
-        pathname: "/console/cliente/",
-      });
+      console.log(error.message);
+      alert(error.message);
     }
   };
 
@@ -459,13 +408,7 @@ export default function ClienteEdit(props) {
             </CardBody>
             <CardFooter>
               <div className="card-header-actions">
-                <Button
-                  block
-                  color="primary"
-                  onClick={() => {
-                    handleCreate();
-                  }}
-                >
+                <Button block color="primary" onClick={handleCreate}>
                   Salvar
                 </Button>
               </div>

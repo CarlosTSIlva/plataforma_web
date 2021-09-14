@@ -39,12 +39,12 @@ export default function Usuario(props) {
   api.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem(
     "crcl-web-token"
   )}`;
-  useEffect(() => {
-    getAssociado();
+  useEffect(async () => {
+    await getAssociado();
   }, [optionStatusAssociado]);
 
-  useEffect(() => {
-    getAssociado();
+  useEffect(async () => {
+    await getAssociado();
   }, [optionUnidadeHabitacional]);
 
   function associadoEdit(e, id = 0, mode = "insert") {

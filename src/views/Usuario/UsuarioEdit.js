@@ -21,33 +21,11 @@ import {
   FormText,
 } from "reactstrap";
 import moment from "moment";
-
-const _optionsTipoAssociado = [
-  { value: 1, label: "Morador Titular" },
-  { value: 2, label: "Morador com Permissão", type: "Dependente" },
-  { value: 3, label: "Morador sem Permissão", type: "Dependente" },
-  { value: 4, label: "Sindico / Administrador" },
-  { value: 5, label: "Administrativo" },
-  { value: 6, label: "Operacional" },
-];
-
-const optionsTipoAssociadoResidencial = [
-  { value: 1, label: "Morador Titular" },
-  { value: 2, label: "Morador com Permissão", type: "Dependente" },
-  { value: 3, label: "Morador sem Permissão", type: "Dependente" },
-];
-
-const optionsTipoAssociadoAdministracao = [
-  { value: 4, label: "Sindico / Administrador" },
-  { value: 5, label: "Administrativo" },
-  { value: 6, label: "Operacional" },
-];
+import { useParams } from "react-router";
 
 const optionsStatusAssociado = [
-  { value: 1, label: "Pendente" },
-  { value: 2, label: "Ativo" },
-  { value: 3, label: "Suspenso" },
-  { value: 4, label: "Cancelado" },
+  { value: 1, label: "Ativo" },
+  { value: 2, label: "Desativo" },
 ];
 
 const optionsSexo = [
@@ -57,16 +35,7 @@ const optionsSexo = [
 ];
 
 const associadoInitialState = {};
-const formValidateInitialState = {
-  nome: "(*) Campo obrigatório.",
-  data_nascimento: "(*) Campo obrigatório.",
-  email: "(*) Campo obrigatório.",
-  username: "(*) Campo obrigatório.",
-  password: "(*) Campo obrigatório.",
-  confirm_password: "(*) Campo obrigatório.",
-  username_invalid: true,
-  email_invalid: true,
-};
+const formValidateInitialState = {};
 var _optionsUnidadeHabitacional = [];
 
 export default function UsuarioEdit(props) {
@@ -81,10 +50,8 @@ export default function UsuarioEdit(props) {
   const [optionStatusAssociado, setStatusAssociado] = useState({});
   const [optionSexo, setSexo] = useState({});
   const [optionAssociadoTitular, setAssociadoTitular] = useState({});
-  const id =
-    props.location.state && props.location.state.id
-      ? props.location.state.id
-      : null;
+  let { id } = useParams();
+
   var mode =
     props.location.state && props.location.state.id
       ? props.location.state.mode
@@ -102,7 +69,7 @@ export default function UsuarioEdit(props) {
 
   async function loadPage() {
     await getUnidadeHabitacional();
-    if (mode === "update" && id) {
+    if (!id) {
       getAssociado();
       setFormValidate({});
     } else {
@@ -110,113 +77,32 @@ export default function UsuarioEdit(props) {
     }
   }
 
-  useEffect(() => {
-    setTipoAssociado({});
-    if (
-      optionUnidadeHabitacional &&
-      optionUnidadeHabitacional.type === "Administracao"
-    ) {
-      setOptionsTipoAssociado(optionsTipoAssociadoAdministracao);
-    } else if (
-      optionUnidadeHabitacional &&
-      optionUnidadeHabitacional.type === "Residencial"
-    ) {
-      setOptionsTipoAssociado(optionsTipoAssociadoResidencial);
-    } else {
-      setOptionsTipoAssociado([]);
-    }
-  }, [optionUnidadeHabitacional]);
-
   async function getUnidadeHabitacional() {
     try {
-      const url = `/condominio/${user_info.contas[0].unidade.condominio.id}/unidade`;
+      const url = `/usuario/${id}/`;
       const response = await api.get(url);
-      _optionsUnidadeHabitacional = [];
-      response.data.data.map((d, i) => {
-        if (d.tipo.id === 0) {
-          _optionsUnidadeHabitacional.push({
-            value: d.id,
-            label: `${d.quadra_bloco}`,
-            type: "Administracao",
-          });
-        } else {
-          _optionsUnidadeHabitacional.push({
-            value: d.id,
-            label: `QB ${d.quadra_bloco} - CA ${d.casa_apto}`,
-            type: "Residencial",
-          });
-        }
+      console.log("resposne ", response.data);
+      setAssociado({
+        ...associado,
+        usuario: {
+          ...response.data.data,
+        },
       });
-      setOptionsUnidadeHabitacional(_optionsUnidadeHabitacional);
     } catch (e) {}
   }
 
   async function getAssociado() {
     try {
       if (id) {
-        const url = "/conta/" + id;
+        const url = "/usuario/" + id;
         const response = await api.get(url);
-        setAssociado(response.data.data);
-        setUnidadeHabitacional(
-          _optionsUnidadeHabitacional.find((element, index, array) => {
-            if (element.value === response.data.data.unidade.id) return element;
-            return false;
-          })
-        );
-        setStatusAssociado(
-          optionsStatusAssociado.find((element, index, array) => {
-            if (element.value === response.data.data.status.id) return element;
-            return false;
-          })
-        );
-        setTipoAssociado(
-          _optionsTipoAssociado.find((element, index, array) => {
-            if (element.value === response.data.data.tipo.id) return element;
-            return false;
-          })
-        );
-        setSexo(
-          optionsSexo.find((element, index, array) => {
-            if (element.value === response.data.data.usuario.genero.id)
-              return element;
-            return false;
-          })
-        );
+        setAssociado({ ...associado, usuario: response.data });
       }
     } catch (e) {}
   }
 
-  function isFormValidate() {
-    for (var prop in formValidate) {
-      if (formValidate[prop]) {
-        return false;
-      }
-    }
-
-    if (!optionUnidadeHabitacional || !optionUnidadeHabitacional.value) {
-      return false;
-    }
-
-    if (!optionTipoAssociado || !optionTipoAssociado.value) {
-      return false;
-    }
-
-    if (!optionStatusAssociado || !optionStatusAssociado.value) {
-      return false;
-    }
-
-    return true;
-  }
-
   async function salvarAssociado() {
-    if (!isFormValidate()) {
-      window.alert(
-        "Há dados não preenchidos ou incorretos, por gentileza verifique o preenchimento."
-      );
-      return;
-    }
-
-    if (mode === "insert") {
+    if (!id) {
       createAssociado();
     } else {
       updateAssociado();
@@ -225,29 +111,18 @@ export default function UsuarioEdit(props) {
 
   async function createAssociado() {
     try {
+      const { password_valid, ...rest } = associado.usuario;
+
       const data = {
-        id_unidade: optionUnidadeHabitacional.value,
-        id_tipo: optionTipoAssociado.value,
-        nome: associado.usuario.nome.trim(),
-        documento_identificacao: associado.usuario.documento_identificacao,
-        telefone: associado.usuario.telefone,
-        email: associado.usuario.email,
-        id_status: optionStatusAssociado.value,
-        id_conta_pai: optionAssociadoTitular
-          ? optionAssociadoTitular.value
-          : null,
-        username: associado.usuario.username,
-        password: associado.usuario.password,
-        id_genero: optionSexo ? optionSexo.value : null,
-        data_nascimento: associado.usuario.data_nascimento
-          ? moment(associado.usuario.data_nascimento).format("YYYY-MM-DD")
-          : null,
+        ...rest,
+        id_cliente: 10,
+        ativo: optionStatusAssociado.value == 1 ? true : false,
       };
-      const url = "/conta/create";
+      const url = "/usuario/create";
       const response = await api.post(url, data);
       if (response.data.status === "OK") {
         setAssociado(associadoInitialState);
-        props.history.push({ pathname: "/console/posto_trabalho" });
+        props.history.push({ pathname: "/console/usuario" });
       } else {
         window.alert(response.data.message);
         return;
@@ -257,102 +132,23 @@ export default function UsuarioEdit(props) {
 
   async function updateAssociado() {
     try {
+      const { password_valid, ...rest } = associado.usuario;
+
       const data = {
-        id: id,
-        id_unidade: optionUnidadeHabitacional.value,
-        id_tipo: optionTipoAssociado.value,
-        id_status: optionStatusAssociado.value,
-        nome: associado.usuario.nome.trim(),
-        email: associado.usuario.email,
-        documento_identificacao: associado.usuario.documento_identificacao,
-        telefone: associado.usuario.telefone,
-        id_genero: optionSexo ? optionSexo.value : null,
-        data_nascimento: associado.usuario.data_nascimento
-          ? moment(associado.usuario.data_nascimento).format("YYYY-MM-DD")
-          : null,
+        ...rest,
+        id_cliente: 10,
+        ativo: optionStatusAssociado.value == 1 ? true : false,
       };
-      const url = "/conta/update";
+      const url = "/usuario/update";
       const response = await api.post(url, data);
       if (response.data.status === "OK") {
         setAssociado(associadoInitialState);
-        props.history.push({ pathname: "/console/posto_trabalho" });
+        props.history.push({ pathname: "/console/usuario" });
       } else {
         window.alert(response.data.message);
         return;
       }
     } catch (e) {}
-  }
-
-  async function handleUsername(username) {
-    if (mode !== "update") {
-      const usernameValidate = validatefield("username", username);
-      if (usernameValidate) {
-        setFormValidate({ ...formValidate, username: usernameValidate });
-      } else {
-        try {
-          const url = `usuario/exists?username=${username}`;
-          const response = await api.get(url);
-          if (response && response.data) {
-            if (response.data.exists) {
-              setFormValidate({
-                ...formValidate,
-                username:
-                  "Este Usuário já esta sendo utilizado, por gentileza tente outro.",
-                username_invalid: true,
-              });
-            } else {
-              setFormValidate({
-                ...formValidate,
-                username: usernameValidate,
-                username_invalid: false,
-              });
-            }
-          }
-        } catch (e) {
-          setFormValidate({
-            ...formValidate,
-            username: "Não foi possível verificar este usuário.",
-            username_invalid: true,
-          });
-        }
-      }
-    }
-  }
-
-  async function handleEmail(email) {
-    if (mode !== "update") {
-      const usernameValidate = validatefield("email", email);
-      if (usernameValidate) {
-        setFormValidate({ ...formValidate, email: usernameValidate });
-      } else {
-        try {
-          const url = `usuario/exists?email=${email}`;
-          const response = await api.get(url);
-          if (response && response.data) {
-            if (response.data.exists) {
-              setFormValidate({
-                ...formValidate,
-                email:
-                  "Este E-mail já esta sendo utilizado, por gentileza tente outro.",
-                email_invalid: true,
-              });
-            } else {
-              setFormValidate({
-                ...formValidate,
-                email: usernameValidate,
-                email_invalid: false,
-              });
-            }
-          }
-        } catch (e) {
-          setFormValidate({
-            ...formValidate,
-            email: "Não foi possível verificar este email.",
-            email_invalid: true,
-          });
-        }
-      }
-    }
   }
 
   return (
@@ -512,9 +308,6 @@ export default function UsuarioEdit(props) {
                       value={
                         associado?.usuario?.email ? associado.usuario.email : ""
                       }
-                      onBlur={() => {
-                        handleEmail(associado?.usuario?.email);
-                      }}
                       invalid={formValidate.email ? true : false}
                       valid={
                         mode === "update"
