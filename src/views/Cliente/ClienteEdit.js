@@ -15,6 +15,7 @@ import {
   Row,
   FormFeedback,
 } from "reactstrap";
+import { useHistory } from "react-router-dom";
 import { useParams } from "react-router";
 import api from "../../services/api";
 
@@ -46,7 +47,7 @@ export default function ClienteEdit(props) {
   const [optionTipoAssociado, setTipoAssociado] = useState({});
   const [optionUnidadeHabitacional, setUnidadeHabitacional] = useState({});
   let { id } = useParams();
-
+  let history = useHistory();
   var mode =
     props.location.state && props.location.state.id
       ? props.location.state.mode
@@ -89,15 +90,18 @@ export default function ClienteEdit(props) {
     }
   }, []);
 
-  useEffect(() => {
-    console.log("logs associado ", associado);
-  }, [associado]);
-
   const handleCreate = async () => {
     try {
-      if (!!id) {
+      if (id) {
         console.log("associado", associado);
-        const response = await api.put("/cliente/", associado.usuario);
+        const {
+          atualizado_dt,
+          atualizado_por,
+          criado_dt,
+          criado_por,
+          ...rest
+        } = associado.usuario;
+        const response = await api.post("/cliente/update", rest);
         console.log(response.data);
       } else {
         console.log("associado", associado);
@@ -105,7 +109,9 @@ export default function ClienteEdit(props) {
         console.log(response.data);
       }
     } catch (error) {
-      alert(error.message);
+      props.history.push({
+        pathname: "/console/cliente/",
+      });
     }
   };
 
