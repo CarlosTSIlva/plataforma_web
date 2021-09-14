@@ -236,7 +236,11 @@ const routes = [
   {
     path: "/console/cliente/edit",
     exact: true,
-    name: "Edição",
+    component: ClienteEdit,
+  },
+  {
+    path: "/console/cliente/edit/:id",
+    exact: true,
     component: ClienteEdit,
   },
   {

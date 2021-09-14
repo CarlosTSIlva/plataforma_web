@@ -15,6 +15,8 @@ import {
   Row,
   FormFeedback,
 } from "reactstrap";
+import { useParams } from "react-router";
+import api from "../../services/api";
 
 const optionsTipoAssociadoResidencial = [
   { value: 1, label: "Morador Titular" },
@@ -31,7 +33,7 @@ const optionsTipoAssociadoAdministracao = [
 const associadoInitialState = {};
 const formValidateInitialState = {
   nome: "(*) Campo obrigatório.",
-  rezao_social: "(*) Campo obrigatório.",
+  razao_social: "(*) Campo obrigatório.",
   username_invalid: true,
   email_invalid: true,
 };
@@ -43,10 +45,8 @@ export default function ClienteEdit(props) {
   const [optionsTipoAssociado, setOptionsTipoAssociado] = useState([]);
   const [optionTipoAssociado, setTipoAssociado] = useState({});
   const [optionUnidadeHabitacional, setUnidadeHabitacional] = useState({});
-  const id =
-    props.location.state && props.location.state.id
-      ? props.location.state.id
-      : null;
+  let { id } = useParams();
+
   var mode =
     props.location.state && props.location.state.id
       ? props.location.state.mode
@@ -81,6 +81,33 @@ export default function ClienteEdit(props) {
       setOptionsTipoAssociado([]);
     }
   }, [optionUnidadeHabitacional]);
+
+  useEffect(async () => {
+    if (id) {
+      const response = await api.get(`/cliente/${id}`);
+      setAssociado({ ...associado, usuario: response.data.data });
+    }
+  }, []);
+
+  useEffect(() => {
+    console.log("logs associado ", associado);
+  }, [associado]);
+
+  const handleCreate = async () => {
+    try {
+      if (!!id) {
+        console.log("associado", associado);
+        const response = await api.put("/cliente/", associado.usuario);
+        console.log(response.data);
+      } else {
+        console.log("associado", associado);
+        const response = await api.post("/cliente/create", associado.usuario);
+        console.log(response.data);
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  };
 
   return (
     <div className="animated fadeIn">
@@ -135,13 +162,13 @@ export default function ClienteEdit(props) {
                           ...associado,
                           usuario: {
                             ...associado.usuario,
-                            rezao_social: e.target.value,
+                            razao_social: e.target.value,
                           },
                         });
                       }}
                       value={
-                        associado?.usuario?.rezao_social
-                          ? associado.usuario.rezao_social
+                        associado?.usuario?.razao_social
+                          ? associado.usuario.razao_social
                           : ""
                       }
                       onBlur={() => {
@@ -149,13 +176,13 @@ export default function ClienteEdit(props) {
                           ...formValidate,
                           nome: validatefield(
                             "nome",
-                            associado?.usuario?.rezao_social?.trim()
+                            associado?.usuario?.razao_social?.trim()
                           ),
                         });
                       }}
-                      invalid={formValidate.rezao_social ? true : false}
+                      invalid={formValidate.razao_social ? true : false}
                     />
-                    <FormFeedback>{formValidate.rezao_social}</FormFeedback>
+                    <FormFeedback>{formValidate.razao_social}</FormFeedback>
                   </FormGroup>
                 </Col>
                 <Col xs="12" md="6">
@@ -430,7 +457,7 @@ export default function ClienteEdit(props) {
                   block
                   color="primary"
                   onClick={() => {
-                    console.log("teste");
+                    handleCreate();
                   }}
                 >
                   Salvar
