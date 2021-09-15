@@ -65,11 +65,9 @@ export default function Usuario(props) {
   }
 
   async function getAssociado() {
-    try {
-      const response = await api.get("/cliente/all");
-      setAssociados(response.data);
-      setAssociadosSearch(response.data);
-    } catch (e) {}
+    const response = await api.get("/cliente/all");
+    setAssociados(response.data);
+    setAssociadosSearch(response.data);
   }
 
   function renderAssociados() {

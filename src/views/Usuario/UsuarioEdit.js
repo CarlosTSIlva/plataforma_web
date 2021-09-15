@@ -107,9 +107,10 @@ export default function UsuarioEdit(props) {
   async function updateAssociado() {
     try {
       const { password_valid, ...rest } = associado.usuario;
-
+      console.log(rest);
       const data = {
         ...rest,
+        id: id,
         id_cliente: 10,
         ativo: optionStatusAssociado.value == 1 ? true : false,
       };

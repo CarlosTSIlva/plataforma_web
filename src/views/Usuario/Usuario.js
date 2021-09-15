@@ -28,7 +28,6 @@ const optionsStatusAssociado = [
 ];
 
 export default function Usuario(props) {
-  const [associados, setAssociados] = useState([]);
   const [associadosSearch, setAssociadosSearch] = useState([]);
   const [optionsUnidadeHabitacional, setOptionsUnidadeHabitacional] = useState(
     []
@@ -36,19 +35,25 @@ export default function Usuario(props) {
   const [optionUnidadeHabitacional, setUnidadeHabitacional] = useState({});
   const [optionStatusAssociado, setStatusAssociado] = useState({});
 
-  useEffect(async () => {
-    await getAssociado();
+  useEffect(() => {
+    getAssociado();
   }, [optionStatusAssociado]);
 
-  useEffect(async () => {
-    await getAssociado();
+  useEffect(() => {
+    getAssociado();
   }, [optionUnidadeHabitacional]);
 
   function associadoEdit(e, id = 0, mode = "insert") {
     e.preventDefault();
-    props.history.push({
-      pathname: `/console/usuario/edit/${id}`,
-    });
+    if (id != 0) {
+      props.history.push({
+        pathname: `/console/usuario/edit/${id}`,
+      });
+    } else {
+      props.history.push({
+        pathname: `/console/usuario/edit/`,
+      });
+    }
   }
 
   function associadoDelete(e, id) {
@@ -61,19 +66,15 @@ export default function Usuario(props) {
   async function deleteAssociado(id) {
     try {
       const url = "/usuario/" + id;
-      const response = await api.delete(url);
+      await api.delete(url);
       getAssociado();
     } catch (e) {}
   }
 
   async function getAssociado() {
-    try {
-      let url = `/usuario/all`;
-      const response = await api.get(url);
-      console.log("dados ", response.data);
-      setAssociados(response.data);
-      setAssociadosSearch(response.data);
-    } catch (e) {}
+    let url = `/usuario/all`;
+    const response = await api.get(url);
+    setAssociadosSearch(response.data);
   }
 
   function renderAssociados() {
@@ -103,15 +104,7 @@ export default function Usuario(props) {
     ));
   }
 
-  const handlePesquisa = (text) => {
-    const searchData = associados.filter((item) => {
-      const itemData = `${item.usuario.nome.toUpperCase()}`;
-      const textData = text.toUpperCase();
-      return itemData.indexOf(textData) > -1;
-    });
-
-    setAssociadosSearch(searchData);
-  };
+  const handlePesquisa = (text) => {};
 
   return (
     <div className="animated fadeIn">
