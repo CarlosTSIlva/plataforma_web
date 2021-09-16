@@ -46,11 +46,6 @@ export default function UsuarioEdit(props) {
   const [optionSexo, setSexo] = useState({});
   let { id } = useParams();
 
-  var mode =
-    props.location.state && props.location.state.id
-      ? props.location.state.mode
-      : "insert";
-
   useEffect(async () => {
     await loadPage();
     return () => {};
@@ -61,7 +56,6 @@ export default function UsuarioEdit(props) {
       getAssociado();
       setFormValidate({});
     } else {
-      mode = "insert";
     }
   }
 
@@ -285,11 +279,7 @@ export default function UsuarioEdit(props) {
                       }
                       invalid={formValidate.email ? true : false}
                       valid={
-                        mode === "update"
-                          ? false
-                          : formValidate.email_invalid
-                          ? false
-                          : true
+                        id ? false : formValidate.email_invalid ? false : true
                       }
                     />
                     <FormFeedback valid>
@@ -395,7 +385,7 @@ export default function UsuarioEdit(props) {
               </Row>
               <Row>
                 <Col xs="12" sm="6" md="6">
-                  {mode === "insert" ? (
+                  {!id ? (
                     <FormGroup>
                       <Label>Senha</Label>
                       <Input
@@ -431,7 +421,7 @@ export default function UsuarioEdit(props) {
                   ) : null}
                 </Col>
                 <Col xs="12" sm="6" md="6">
-                  {mode === "insert" ? (
+                  {!id ? (
                     <FormGroup>
                       <Label>Confirmação de Senha</Label>
                       <Input
