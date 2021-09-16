@@ -36,16 +36,6 @@ export default function PostoTrabalho(props) {
   const [optionUnidadeHabitacional, setUnidadeHabitacional] = useState({});
   const [optionStatusAssociado, setStatusAssociado] = useState({});
 
-  const user_info = useSelector((state) => state.user);
-  api.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem(
-    "crcl-web-token"
-  )}`;
-
-  useEffect(() => {
-    getUnidadeHabitacional();
-    return () => {};
-  }, []);
-
   useEffect(() => {
     getAssociado();
   }, [optionStatusAssociado]);
@@ -54,114 +44,57 @@ export default function PostoTrabalho(props) {
     getAssociado();
   }, [optionUnidadeHabitacional]);
 
-  async function getUnidadeHabitacional() {
-    try {
-      const url = `/condominio/${user_info.contas[0].unidade.condominio.id}/unidade`;
-      const response = await api.get(url);
-      const options = [];
-      response.data.data.map((d, i) => {
-        if (d.tipo.id === 0) {
-          options.push({
-            value: d.id,
-            label: `${d.quadra_bloco}`,
-            type: "Administracao",
-          });
-        } else {
-          options.push({
-            value: d.id,
-            label: `QB ${d.quadra_bloco} - CA ${d.casa_apto}`,
-            type: "Residencial",
-          });
-        }
+  function associadoEdit(e, postotrabalho = false) {
+    e.preventDefault();
+    if (postotrabalho) {
+      props.history.push({
+        pathname: `/console/posto_trabalho/edit/${postotrabalho}`,
       });
-      setOptionsUnidadeHabitacional(options);
-    } catch (e) {}
-  }
-
-  function associadoEdit(e, id = 0, mode = "insert") {
-    e.preventDefault();
-    props.history.push({
-      pathname: "/console/posto_trabalho/edit",
-      state: { id: id, mode: mode },
-    });
-  }
-
-  function associadoView(e, id) {
-    e.preventDefault();
-    props.history.push({
-      pathname: "/console/associado/view",
-      state: { id: id },
-    });
+    } else {
+      props.history.push({
+        pathname: "/console/posto_trabalho/edit",
+      });
+    }
   }
 
   function associadoDelete(e, id) {
     e.preventDefault();
-    if (window.confirm("Deseja realmente cancelar esta Conta ?")) {
+    if (window.confirm("Deseja realmente deletar este posto de trabalho ?")) {
       deleteAssociado(id);
     }
   }
 
   async function deleteAssociado(id) {
     try {
-      const url = "/conta/" + id;
-      const response = await api.delete(url);
+      const url = "/postotrabalho/" + id;
+      await api.delete(url);
       getAssociado();
     } catch (e) {}
   }
 
   async function getAssociado() {
     try {
-      const status = optionStatusAssociado ? optionStatusAssociado.value : null;
-      const unidade = optionUnidadeHabitacional
-        ? optionUnidadeHabitacional.value
-        : null;
-      let url = `/condominio/${user_info.contas[0].unidade.condominio.id}/conta?search=1`;
-      if (status) {
-        url = `${url}&status=${status}`;
-      }
-      if (unidade) {
-        url = `${url}&unidade=${unidade}`;
-      }
+      let url = `/postotrabalho/all`;
       const response = await api.get(url);
-      setAssociados(response.data.data);
-      setAssociadosSearch(response.data.data);
+      console.log(response.data);
+      setAssociados(response.data);
+      setAssociadosSearch(response.data);
     } catch (e) {}
   }
 
   function renderAssociados() {
     return associadosSearch?.map((d, i) => (
       <tr key={i}>
-        <td>{d.usuario.nome}</td>
-        <td>
-          {d.unidade.tipo.id === 0 ? (
-            <h5 className="lead">{`${d.unidade.quadra_bloco}`}</h5>
-          ) : (
-            <h5 className="lead">{`QB ${d.unidade.quadra_bloco} CA ${d.unidade.casa_apto}`}</h5>
-          )}
-        </td>
-        <td>{d.tipo.descricao}</td>
-        <td>
-          {d.status.id !== 2 ? (
-            d.status.id === 4 ? (
-              <Badge className="mr-1" color="danger">
-                {d.status.descricao}
-              </Badge>
-            ) : (
-              <Badge className="mr-1" color="warning">
-                {d.status.descricao}
-              </Badge>
-            )
-          ) : (
-            <Badge className="mr-1" color="success">
-              {d.status.descricao}
-            </Badge>
-          )}
-        </td>
+        {console.log("teste ", d)}
+        <td>{d.nome}</td>
+        <td></td>
+        <td></td>
+        <td></td>
         <td>
           <Button
             color="info"
             onClick={(e) => {
-              associadoEdit(e, d.id, "update");
+              associadoEdit(e, d.id);
             }}
           >
             <i className="icon-note" />
@@ -253,7 +186,9 @@ export default function PostoTrabalho(props) {
                 <thead className="thead-light">
                   <tr className="text-left">
                     <th>Nome</th>
-                    <th>Localização</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
                     <th>Ações</th>
                   </tr>
                 </thead>

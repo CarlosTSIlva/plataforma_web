@@ -19,6 +19,7 @@ import {
   InputGroupAddon,
   Input,
 } from "reactstrap";
+import { useParams } from "react-router";
 
 const optionsStatusAssociado = [
   { value: "1", label: "Pendente" },
@@ -35,12 +36,6 @@ export default function Servico(props) {
   );
   const [optionUnidadeHabitacional, setUnidadeHabitacional] = useState({});
   const [optionStatusAssociado, setStatusAssociado] = useState({});
-
-  const user_info = useSelector((state) => state.user);
-  api.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem(
-    "crcl-web-token"
-  )}`;
-
   useEffect(() => {
     getUnidadeHabitacional();
     return () => {};
@@ -56,42 +51,23 @@ export default function Servico(props) {
 
   async function getUnidadeHabitacional() {
     try {
-      const url = `/condominio/${user_info.contas[0].unidade.condominio.id}/unidade`;
+      const url = `/servico/all`;
       const response = await api.get(url);
-      const options = [];
-      response.data.data.map((d, i) => {
-        if (d.tipo.id === 0) {
-          options.push({
-            value: d.id,
-            label: `${d.quadra_bloco}`,
-            type: "Administracao",
-          });
-        } else {
-          options.push({
-            value: d.id,
-            label: `QB ${d.quadra_bloco} - CA ${d.casa_apto}`,
-            type: "Residencial",
-          });
-        }
-      });
-      setOptionsUnidadeHabitacional(options);
+      console.log(response.data);
     } catch (e) {}
   }
 
-  function associadoEdit(e, id = 0, mode = "insert") {
+  function associadoEdit(e, id = false) {
     e.preventDefault();
-    props.history.push({
-      pathname: "/console/servico/edit",
-      state: { id: id, mode: mode },
-    });
-  }
-
-  function associadoView(e, id) {
-    e.preventDefault();
-    props.history.push({
-      pathname: "/console/associado/view",
-      state: { id: id },
-    });
+    if (id) {
+      props.history.push({
+        pathname: `/console/servico/edit/${id}`,
+      });
+    } else {
+      props.history.push({
+        pathname: "/console/servico/edit",
+      });
+    }
   }
 
   function associadoDelete(e, id) {
@@ -103,65 +79,34 @@ export default function Servico(props) {
 
   async function deleteAssociado(id) {
     try {
-      const url = "/conta/" + id;
-      const response = await api.delete(url);
+      const url = "/servico/" + id;
+      await api.delete(url);
       getAssociado();
     } catch (e) {}
   }
 
   async function getAssociado() {
     try {
-      const status = optionStatusAssociado ? optionStatusAssociado.value : null;
-      const unidade = optionUnidadeHabitacional
-        ? optionUnidadeHabitacional.value
-        : null;
-      let url = `/condominio/${user_info.contas[0].unidade.condominio.id}/conta?search=1`;
-      if (status) {
-        url = `${url}&status=${status}`;
-      }
-      if (unidade) {
-        url = `${url}&unidade=${unidade}`;
-      }
+      let url = `/servico/all`;
       const response = await api.get(url);
-      setAssociados(response.data.data);
-      setAssociadosSearch(response.data.data);
+      console.log(response.data);
+      setAssociados(response.data);
+      setAssociadosSearch(response.data);
     } catch (e) {}
   }
 
   function renderAssociados() {
     return associadosSearch?.map((d, i) => (
       <tr key={i}>
-        <td>{d.usuario.nome}</td>
-        <td>
-          {d.unidade.tipo.id === 0 ? (
-            <h5 className="lead">{`${d.unidade.quadra_bloco}`}</h5>
-          ) : (
-            <h5 className="lead">{`QB ${d.unidade.quadra_bloco} CA ${d.unidade.casa_apto}`}</h5>
-          )}
-        </td>
-        <td>{d.tipo.descricao}</td>
-        <td>
-          {d.status.id !== 2 ? (
-            d.status.id === 4 ? (
-              <Badge className="mr-1" color="danger">
-                {d.status.descricao}
-              </Badge>
-            ) : (
-              <Badge className="mr-1" color="warning">
-                {d.status.descricao}
-              </Badge>
-            )
-          ) : (
-            <Badge className="mr-1" color="success">
-              {d.status.descricao}
-            </Badge>
-          )}
-        </td>
+        <td>{d.nome}</td>
+        <td></td>
+        <td></td>
+        <td></td>
         <td>
           <Button
             color="info"
             onClick={(e) => {
-              associadoEdit(e, d.id, "update");
+              associadoEdit(e, d.id);
             }}
           >
             <i className="icon-note" />
@@ -274,11 +219,15 @@ export default function Servico(props) {
                 <thead className="thead-light">
                   <tr className="text-left">
                     <th>Nome</th>
-                    <th>Duração</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
                     <th>Ações</th>
                   </tr>
                 </thead>
-                <tbody>{renderAssociados()}</tbody>
+                {associadosSearch?.length > 0 && (
+                  <tbody>{renderAssociados()}</tbody>
+                )}
               </Table>
             </CardBody>
           </Card>

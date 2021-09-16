@@ -154,6 +154,12 @@ const routes = [
     component: PostoTrabalhoEdit,
   },
   {
+    path: "/console/posto_trabalho/edit/:id",
+    exact: true,
+    name: "Edição",
+    component: PostoTrabalhoEdit,
+  },
+  {
     path: "/console/posto_trabalho/view",
     exact: true,
     name: "Visualização",
@@ -286,6 +292,12 @@ const routes = [
     component: ServicoEdit,
   },
   {
+    path: "/console/servico/edit/:id",
+    exact: true,
+    name: "Edição",
+    component: ServicoEdit,
+  },
+  {
     path: "/console/servico/view",
     exact: true,
     name: "Visualização",
@@ -299,6 +311,12 @@ const routes = [
   },
   {
     path: "/console/estabelecimento/edit",
+    exact: true,
+    name: "Edição",
+    component: EstabelecimentoEdit,
+  },
+  {
+    path: "/console/estabelecimento/edit/:id",
     exact: true,
     name: "Edição",
     component: EstabelecimentoEdit,
