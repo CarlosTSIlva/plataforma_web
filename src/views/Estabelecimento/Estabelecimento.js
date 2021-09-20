@@ -173,25 +173,6 @@ export default function Estabelecimento(props) {
               </div>
             </CardHeader>
             <CardBody>
-              <Row>
-                <Col>
-                  <FormGroup>
-                    <InputGroup>
-                      <InputGroupAddon addonType="prepend">
-                        <Button type="button" color="primary" disabled>
-                          <i className="fa fa-search"></i> Consulta
-                        </Button>
-                      </InputGroupAddon>
-                      <Input
-                        type="text"
-                        placeholder="Consulte a conta..."
-                        onChange={(e) => handlePesquisa(e.target.value)}
-                      />
-                    </InputGroup>
-                  </FormGroup>
-                </Col>
-              </Row>
-
               <Table className="table table-responsive-sm table-hover table-outline mb-0">
                 <thead className="thead-light">
                   <tr className="text-left">
