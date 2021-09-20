@@ -108,7 +108,7 @@ export default function ClienteEdit(props) {
                 </Col>
                 <Col xs="12" md="6">
                   <FormGroup>
-                    <Label>Razao Social</Label>
+                    <Label>Razão Social</Label>
                     <Input
                       required={true}
                       type="text"
@@ -142,7 +142,7 @@ export default function ClienteEdit(props) {
                 </Col>
                 <Col xs="12" md="6">
                   <FormGroup>
-                    <Label>Cnpj</Label>
+                    <Label>CNPJ</Label>
                     <Input
                       type="text"
                       onChange={(e) => {
@@ -173,7 +173,7 @@ export default function ClienteEdit(props) {
                 </Col>
                 <Col xs="12" md="6">
                   <FormGroup>
-                    <Label>Cep</Label>
+                    <Label>CEP</Label>
                     <Input
                       required={true}
                       type="text"
@@ -239,7 +239,7 @@ export default function ClienteEdit(props) {
                 </Col>
                 <Col xs="12" md="4">
                   <FormGroup>
-                    <Label>Numero</Label>
+                    <Label>Número</Label>
                     <Input
                       required={true}
                       type="text"
@@ -341,7 +341,7 @@ export default function ClienteEdit(props) {
                 </Col>
                 <Col xs="12" md="4">
                   <FormGroup>
-                    <Label>Uf</Label>
+                    <Label>UF</Label>
                     <Input
                       required={true}
                       type="text"
@@ -372,7 +372,7 @@ export default function ClienteEdit(props) {
 
                 <Col xs="12" md="4">
                   <FormGroup>
-                    <Label>Localizacao</Label>
+                    <Label>Localização</Label>
                     <Input
                       required={true}
                       type="text"

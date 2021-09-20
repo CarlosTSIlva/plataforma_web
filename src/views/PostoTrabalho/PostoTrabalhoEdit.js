@@ -37,9 +37,6 @@ var _optionsUnidadeHabitacional = [];
 export default function PostoTrabalhoEdit(props) {
   const [associado, setAssociado] = useState({});
   const [formValidate, setFormValidate] = useState(formValidateInitialState);
-  const [optionsUnidadeHabitacional, setOptionsUnidadeHabitacional] = useState(
-    []
-  );
 
   const { id } = useParams();
 
@@ -60,35 +57,10 @@ export default function PostoTrabalhoEdit(props) {
   }, []);
 
   async function loadPage() {
-    await getUnidadeHabitacional();
     if (id) {
       setFormValidate({});
     } else {
     }
-  }
-
-  async function getUnidadeHabitacional() {
-    try {
-      const url = `/condominio/${user_info.contas[0].unidade.condominio.id}/unidade`;
-      const response = await api.get(url);
-      _optionsUnidadeHabitacional = [];
-      response.data.data.map((d, i) => {
-        if (d.tipo.id === 0) {
-          _optionsUnidadeHabitacional.push({
-            value: d.id,
-            label: `${d.quadra_bloco}`,
-            type: "Administracao",
-          });
-        } else {
-          _optionsUnidadeHabitacional.push({
-            value: d.id,
-            label: `QB ${d.quadra_bloco} - CA ${d.casa_apto}`,
-            type: "Residencial",
-          });
-        }
-      });
-      setOptionsUnidadeHabitacional(_optionsUnidadeHabitacional);
-    } catch (e) {}
   }
 
   async function salvarAssociado() {
@@ -143,7 +115,7 @@ export default function PostoTrabalhoEdit(props) {
               <Row>
                 <Col xs="12" md="6">
                   <FormGroup>
-                    <Label>Localizacao</Label>
+                    <Label>Localização</Label>
                     <Input
                       type="text"
                       placeholder="Preencha a localização."

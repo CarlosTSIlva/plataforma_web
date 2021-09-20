@@ -133,10 +133,10 @@ export default function UsuarioEdit(props) {
               <Row>
                 <Col xs="12" md="4">
                   <FormGroup>
-                    <Label>Username</Label>
+                    <Label>Usuário</Label>
                     <Input
                       type="text"
-                      placeholder="Preencha o username."
+                      placeholder="Preencha o Usuário."
                       onChange={(e) => {
                         setAssociado({
                           ...associado,
@@ -316,7 +316,7 @@ export default function UsuarioEdit(props) {
               <Row>
                 <Col xs="12" md="4">
                   <FormGroup>
-                    <Label>Cpf</Label>
+                    <Label>CPF</Label>
                     <Input
                       type="text"
                       id="descricao"

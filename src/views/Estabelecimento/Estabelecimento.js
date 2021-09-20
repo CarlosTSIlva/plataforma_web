@@ -146,7 +146,7 @@ export default function Estabelecimento(props) {
 
   const handlePesquisa = (text) => {
     const searchData = associados.filter((item) => {
-      const itemData = `${item.usuario.nome.toUpperCase()}`;
+      const itemData = `${item.nome.toUpperCase()}`;
       const textData = text.toUpperCase();
       return itemData.indexOf(textData) > -1;
     });
@@ -191,50 +191,7 @@ export default function Estabelecimento(props) {
                   </FormGroup>
                 </Col>
               </Row>
-              <Row>
-                <Col xs="12" sm="8" md="8">
-                  <FormGroup>
-                    <Label>Unidade Habitacional</Label>
-                    <Select
-                      options={optionsUnidadeHabitacional}
-                      isClearable={true}
-                      placeholder="Selecione..."
-                      onChange={(selectedOption) => {
-                        setUnidadeHabitacional(selectedOption);
-                      }}
-                      theme={(theme) => ({
-                        ...theme,
-                        colors: {
-                          ...theme.colors,
-                          primary25: "#54ff9d",
-                          primary: "#219653",
-                        },
-                      })}
-                    />
-                  </FormGroup>
-                </Col>
-                <Col xs="12" sm="6" md="4">
-                  <FormGroup>
-                    <Label>Status</Label>
-                    <Select
-                      options={optionsStatusAssociado}
-                      isClearable={true}
-                      placeholder="Selecione..."
-                      onChange={(selectedOption) => {
-                        setStatusAssociado(selectedOption);
-                      }}
-                      theme={(theme) => ({
-                        ...theme,
-                        colors: {
-                          ...theme.colors,
-                          primary25: "#54ff9d",
-                          primary: "#219653",
-                        },
-                      })}
-                    />
-                  </FormGroup>
-                </Col>
-              </Row>
+
               <Table className="table table-responsive-sm table-hover table-outline mb-0">
                 <thead className="thead-light">
                   <tr className="text-left">

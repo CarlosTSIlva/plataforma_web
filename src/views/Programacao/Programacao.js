@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 import Select from "react-select";
 
 import api from "../../services/api";
@@ -19,7 +18,6 @@ import {
   InputGroupAddon,
   Input,
 } from "reactstrap";
-import { useParams } from "react-router";
 
 const optionsStatusAssociado = [
   { value: "1", label: "Pendente" },
@@ -28,63 +26,76 @@ const optionsStatusAssociado = [
   { value: "4", label: "Cancelado" },
 ];
 
-export default function Usuario(props) {
+export default function Programacao(props) {
   const [associados, setAssociados] = useState([]);
   const [associadosSearch, setAssociadosSearch] = useState([]);
+  const [optionsUnidadeHabitacional, setOptionsUnidadeHabitacional] = useState(
+    []
+  );
+  const [optionUnidadeHabitacional, setUnidadeHabitacional] = useState({});
+  const [optionStatusAssociado, setStatusAssociado] = useState({});
 
   useEffect(() => {
     getAssociado();
-  }, []);
+  }, [optionStatusAssociado]);
 
-  function associadoEdit(e, id = 0, mode = "insert") {
+  useEffect(() => {
+    getAssociado();
+  }, [optionUnidadeHabitacional]);
+
+  function associadoEdit(e, id = false) {
     e.preventDefault();
     if (id) {
       props.history.push({
-        pathname: `/console/cliente/edit/${id}`,
+        pathname: `/console/programacao/edit/${id}`,
       });
     } else {
       props.history.push({
-        pathname: "/console/cliente/edit",
+        pathname: "/console/programacao/edit",
       });
     }
   }
 
   function associadoDelete(e, id) {
     e.preventDefault();
-    if (window.confirm("Deseja realmente cancelar este cliente ?")) {
+    if (window.confirm("Deseja realmente cancelar esta programação ?")) {
       deleteAssociado(id);
     }
   }
 
   async function deleteAssociado(id) {
     try {
-      const url = "/cliente/" + id;
+      const url = "/programacao/" + id;
       await api.delete(url);
       getAssociado();
     } catch (e) {}
   }
 
   async function getAssociado() {
-    const response = await api.get("/cliente/all");
-    setAssociados(response.data);
-    setAssociadosSearch(response.data);
+    try {
+      let url = `/programacao/all`;
+      const response = await api.get(url);
+      setAssociados(response.data);
+      setAssociadosSearch(response.data);
+    } catch (e) {}
   }
 
   function renderAssociados() {
-    return associadosSearch?.map((d, i) => (
+    return associadosSearch.map((d, i) => (
       <tr key={i}>
-        <td>{d.nome}</td>
+        <td>{d.avulsa ? "true" : "false"}</td>
+        <td></td>
         <td></td>
         <td></td>
         <td>
           <Button
             color="info"
             onClick={(e) => {
-              associadoEdit(e, d.id, "update");
+              associadoEdit(e, d.id);
             }}
           >
             <i className="icon-note" />
-          </Button>{" "}
+          </Button>
           <Button
             color="danger"
             onClick={(e) => {
@@ -92,7 +103,7 @@ export default function Usuario(props) {
             }}
           >
             <i className="icon-trash" />
-          </Button>{" "}
+          </Button>
         </td>
       </tr>
     ));
@@ -100,7 +111,7 @@ export default function Usuario(props) {
 
   const handlePesquisa = (text) => {
     const searchData = associados.filter((item) => {
-      const itemData = `${item.nome.toUpperCase()}`;
+      const itemData = `${item.usuario.nome.toUpperCase()}`;
       const textData = text.toUpperCase();
       return itemData.indexOf(textData) > -1;
     });
@@ -114,7 +125,7 @@ export default function Usuario(props) {
         <Col xs="12" lg="12">
           <Card>
             <CardHeader>
-              <i className="fa fa-align-justify"></i> Cliente
+              <i className="fa fa-align-justify"></i> Conta
               <div className="card-header-actions">
                 <Button
                   className="card-header-action btn-setting"
@@ -122,7 +133,7 @@ export default function Usuario(props) {
                     associadoEdit(e);
                   }}
                 >
-                  <i className="icon-note" /> Novo Cliente
+                  <i className="icon-note" /> Nova Conta
                 </Button>
               </div>
             </CardHeader>
@@ -145,17 +156,63 @@ export default function Usuario(props) {
                   </FormGroup>
                 </Col>
               </Row>
-
+              <Row>
+                <Col xs="12" sm="8" md="8">
+                  <FormGroup>
+                    <Label>Unidade Habitacional</Label>
+                    <Select
+                      options={optionsUnidadeHabitacional}
+                      isClearable={true}
+                      placeholder="Selecione..."
+                      onChange={(selectedOption) => {
+                        setUnidadeHabitacional(selectedOption);
+                      }}
+                      theme={(theme) => ({
+                        ...theme,
+                        colors: {
+                          ...theme.colors,
+                          primary25: "#54ff9d",
+                          primary: "#219653",
+                        },
+                      })}
+                    />
+                  </FormGroup>
+                </Col>
+                <Col xs="12" sm="6" md="4">
+                  <FormGroup>
+                    <Label>Status</Label>
+                    <Select
+                      options={optionsStatusAssociado}
+                      isClearable={true}
+                      placeholder="Selecione..."
+                      onChange={(selectedOption) => {
+                        setStatusAssociado(selectedOption);
+                      }}
+                      theme={(theme) => ({
+                        ...theme,
+                        colors: {
+                          ...theme.colors,
+                          primary25: "#54ff9d",
+                          primary: "#219653",
+                        },
+                      })}
+                    />
+                  </FormGroup>
+                </Col>
+              </Row>
               <Table className="table table-responsive-sm table-hover table-outline mb-0">
                 <thead className="thead-light">
                   <tr className="text-left">
                     <th>Nome</th>
                     <th></th>
                     <th></th>
+                    <th></th>
                     <th>Ações</th>
                   </tr>
                 </thead>
-                <tbody>{renderAssociados()}</tbody>
+                {associadosSearch.length > 0 && (
+                  <tbody>{renderAssociados()}</tbody>
+                )}
               </Table>
             </CardBody>
           </Card>

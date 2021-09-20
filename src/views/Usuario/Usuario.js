@@ -56,6 +56,19 @@ export default function Usuario(props) {
     }
   }
 
+  const handlePesquisa = (text) => {
+    if (text.length == 0) {
+      getAssociado();
+    }
+    const searchData = associadosSearch.filter((item) => {
+      const itemData = `${item.nome.toUpperCase()}`;
+      const textData = text.toUpperCase();
+      return itemData.indexOf(textData) > -1;
+    });
+
+    setAssociadosSearch(searchData);
+  };
+
   function associadoDelete(e, id) {
     e.preventDefault();
     if (window.confirm("Deseja realmente deletar este usuario ?")) {
@@ -104,8 +117,6 @@ export default function Usuario(props) {
     ));
   }
 
-  const handlePesquisa = (text) => {};
-
   return (
     <div className="animated fadeIn">
       <Row>
@@ -143,51 +154,7 @@ export default function Usuario(props) {
                   </FormGroup>
                 </Col>
               </Row>
-              <Row>
-                <Col xs="12" sm="8" md="8">
-                  <FormGroup>
-                    <Label>Unidade Habitacional</Label>
-                    <Select
-                      options={optionsUnidadeHabitacional}
-                      isClearable={true}
-                      placeholder="Selecione..."
-                      onChange={(selectedOption) => {
-                        setUnidadeHabitacional(selectedOption);
-                      }}
-                      theme={(theme) => ({
-                        ...theme,
-                        colors: {
-                          ...theme.colors,
-                          primary25: "#54ff9d",
-                          primary: "#219653",
-                        },
-                      })}
-                    />
-                  </FormGroup>
-                </Col>
-                <Col xs="12" sm="6" md="4">
-                  <FormGroup>
-                    <Label>Status</Label>
-                    <Label></Label>
-                    <Select
-                      options={optionsStatusAssociado}
-                      isClearable={true}
-                      placeholder="Selecione..."
-                      onChange={(selectedOption) => {
-                        setStatusAssociado(selectedOption);
-                      }}
-                      theme={(theme) => ({
-                        ...theme,
-                        colors: {
-                          ...theme.colors,
-                          primary25: "#54ff9d",
-                          primary: "#219653",
-                        },
-                      })}
-                    />
-                  </FormGroup>
-                </Col>
-              </Row>
+
               <Table className="table table-responsive-sm table-hover table-outline mb-0">
                 <thead className="thead-light">
                   <tr className="text-left">
