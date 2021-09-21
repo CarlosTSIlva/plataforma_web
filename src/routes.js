@@ -113,31 +113,31 @@ const routes = [
   {
     path: "/console/usuario",
     exact: true,
-    name: "Usuario",
+    name: "Usuário",
     component: Usuario,
   },
   {
     path: "/console/programacao",
     exact: true,
-    name: "Programacao",
+    name: "Programação",
     component: Programacao,
   },
   {
     path: "/console/programacao/edit",
     exact: true,
-    name: "Programacao",
+    name: "Programação",
     component: ProgramacaoEdit,
   },
   {
     path: "/console/programacao/edit/:id",
     exact: true,
-    name: "Programacao",
+    name: "Programação",
     component: ProgramacaoEdit,
   },
   {
     path: "/console/programacao/view",
     exact: true,
-    name: "Programacao",
+    name: "Programação",
     component: ProgramacaoView,
   },
   {
@@ -318,19 +318,19 @@ const routes = [
   {
     path: "/console/servico",
     exact: true,
-    name: "Condomínio",
+    name: "Serviço",
     component: Servico,
   },
   {
     path: "/console/servico/edit",
     exact: true,
-    name: "Edição",
+    name: "Serviço",
     component: ServicoEdit,
   },
   {
     path: "/console/servico/edit/:id",
     exact: true,
-    name: "Edição",
+    name: "Serviço",
     component: ServicoEdit,
   },
   {
@@ -342,25 +342,25 @@ const routes = [
   {
     path: "/console/estabelecimento",
     exact: true,
-    name: "Condomínio",
+    name: "Estabelecimento",
     component: Estabelecimento,
   },
   {
     path: "/console/estabelecimento/edit",
     exact: true,
-    name: "Edição",
+    name: "Estabelecimento",
     component: EstabelecimentoEdit,
   },
   {
     path: "/console/estabelecimento/edit/:id",
     exact: true,
-    name: "Edição",
+    name: "Estabelecimento",
     component: EstabelecimentoEdit,
   },
   {
     path: "/console/estabelecimento/view",
     exact: true,
-    name: "Visualização",
+    name: "Estabelecimento",
     component: EstabelecimentoView,
   },
   {

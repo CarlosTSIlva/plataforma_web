@@ -140,7 +140,7 @@ export default function Servico(props) {
         <Col xs="12" lg="12">
           <Card>
             <CardHeader>
-              <i className="fa fa-align-justify"></i> Conta
+              <i className="fa fa-align-justify"></i> Serviço
               <div className="card-header-actions">
                 <Button
                   className="card-header-action btn-setting"
@@ -148,7 +148,7 @@ export default function Servico(props) {
                     associadoEdit(e);
                   }}
                 >
-                  <i className="icon-note" /> Nova serviço
+                  <i className="icon-note" /> Nova Serviço
                 </Button>
               </div>
             </CardHeader>
@@ -164,7 +164,7 @@ export default function Servico(props) {
                       </InputGroupAddon>
                       <Input
                         type="text"
-                        placeholder="Consulte a conta..."
+                        placeholder="Consulte o seu Serviço..."
                         onChange={(e) => handlePesquisa(e.target.value)}
                       />
                     </InputGroup>

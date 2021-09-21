@@ -160,7 +160,7 @@ export default function Estabelecimento(props) {
         <Col xs="12" lg="12">
           <Card>
             <CardHeader>
-              <i className="fa fa-align-justify"></i> Conta
+              <i className="fa fa-align-justify"></i> Estabelecimento
               <div className="card-header-actions">
                 <Button
                   className="card-header-action btn-setting"
@@ -168,7 +168,7 @@ export default function Estabelecimento(props) {
                     associadoEdit(e);
                   }}
                 >
-                  <i className="icon-note" /> Nova Conta
+                  <i className="icon-note" /> Novo Estabelecimento
                 </Button>
               </div>
             </CardHeader>
@@ -177,9 +177,9 @@ export default function Estabelecimento(props) {
                 <thead className="thead-light">
                   <tr className="text-left">
                     <th>Nome</th>
-                    <th>Unidade Habitacional</th>
-                    <th>Tipo</th>
-                    <th>Status</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
                     <th>Ações</th>
                   </tr>
                 </thead>

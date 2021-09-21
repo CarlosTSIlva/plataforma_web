@@ -152,7 +152,7 @@ export default function ProgramacaoEdit(props) {
                     </Col>
                     <Col xs="12" md="4">
                       <FormGroup>
-                        <Label>dia_semana</Label>
+                        <Label>Dias da semana</Label>
                         <Input
                           type="text"
                           id="descricao"
@@ -243,7 +243,7 @@ export default function ProgramacaoEdit(props) {
                     </Col>
                     <Col xs="12" md="4">
                       <FormGroup>
-                        <Label>numero_vezes</Label>
+                        <Label>Numero Vezes</Label>
                         <Input
                           type="text"
                           id="descricao"
@@ -268,7 +268,7 @@ export default function ProgramacaoEdit(props) {
                     </Col>
                     <Col xs="12" md="12">
                       <FormGroup>
-                        <Label>Horario</Label>
+                        <Label>Horário</Label>
                         <Input
                           type="horario"
                           name="horario"

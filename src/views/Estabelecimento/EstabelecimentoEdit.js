@@ -273,7 +273,7 @@ export default function EstabelecimentoEdit(props) {
               <Row>
                 <Col xs="12" md="4">
                   <FormGroup>
-                    <Label>Cnpj</Label>
+                    <Label>CNPJ</Label>
                     <Input
                       type="text"
                       id="descricao"
@@ -296,7 +296,7 @@ export default function EstabelecimentoEdit(props) {
                 </Col>
                 <Col xs="12" md="4">
                   <FormGroup>
-                    <Label>Cep</Label>
+                    <Label>CEP</Label>
                     <Input
                       type="text"
                       id="descricao"
@@ -425,7 +425,7 @@ export default function EstabelecimentoEdit(props) {
               <Row>
                 <Col xs="12" md="6">
                   <FormGroup>
-                    <Label>Uf</Label>
+                    <Label>UF</Label>
                     <Input
                       type="text"
                       id="descricao"

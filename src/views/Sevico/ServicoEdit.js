@@ -156,7 +156,7 @@ export default function ServicoEdit(props) {
               <Row>
                 <Col xs="12" md="4">
                   <FormGroup>
-                    <Label>Posto trabalho</Label>
+                    <Label>Posto Trabalho</Label>
                     <Select
                       placeholder="Selecione..."
                       options={optionsStatusAssociado}
@@ -246,7 +246,7 @@ export default function ServicoEdit(props) {
               <Row>
                 <Col xs="12" md="6">
                   <FormGroup>
-                    <Label>controle de posto</Label>
+                    <Label>Controle de Posto</Label>
                     <Input
                       type="text"
                       id="descricao"
