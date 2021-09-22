@@ -123,7 +123,7 @@ export default function Usuario(props) {
         <Col xs="12" lg="12">
           <Card>
             <CardHeader>
-              <i className="fa fa-align-justify"></i> Usuario
+              <i className="fa fa-align-justify"></i> Usuário
               <div className="card-header-actions">
                 <Button
                   className="card-header-action btn-setting"
@@ -131,7 +131,7 @@ export default function Usuario(props) {
                     associadoEdit(e);
                   }}
                 >
-                  <i className="icon-note" /> Novo usuario
+                  <i className="icon-note" /> Novo usuário
                 </Button>
               </div>
             </CardHeader>
@@ -147,7 +147,7 @@ export default function Usuario(props) {
                       </InputGroupAddon>
                       <Input
                         type="text"
-                        placeholder="Consulte a conta..."
+                        placeholder="Consulte a usuário..."
                         onChange={(e) => handlePesquisa(e.target.value)}
                       />
                     </InputGroup>
