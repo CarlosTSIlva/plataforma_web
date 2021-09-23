@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import Select from "react-select";
 
 import api from "../../services/api";
 
@@ -12,25 +10,14 @@ import {
   Col,
   Row,
   Table,
-  Badge,
   FormGroup,
-  Label,
   InputGroup,
   InputGroupAddon,
   Input,
 } from "reactstrap";
-import { useParams } from "react-router";
 
-const optionsStatusAssociado = [
-  { value: "1", label: "Pendente" },
-  { value: "2", label: "Ativo" },
-  { value: "3", label: "Suspenso" },
-  { value: "4", label: "Cancelado" },
-];
-
-export default function Usuario(props) {
-  const [associados, setAssociados] = useState([]);
-  const [associadosSearch, setAssociadosSearch] = useState([]);
+export default function Atividade(props) {
+  const [atividadeSearch, setAtividadeSearch] = useState([]);
 
   useEffect(() => {
     getAssociado();
@@ -38,43 +25,55 @@ export default function Usuario(props) {
 
   function associadoEdit(e, id = null) {
     e.preventDefault();
-    if (id) {
+    if (id != 0) {
       props.history.push({
-        pathname: `/console/cliente/edit/${id}`,
+        pathname: `/console/atividade/edit/${id}`,
       });
     } else {
       props.history.push({
-        pathname: "/console/cliente/edit",
+        pathname: `/console/atividade/edit/`,
       });
     }
   }
 
+  const handlePesquisa = (text) => {
+    if (text.length == 0) {
+      getAssociado();
+    }
+    const searchData = atividadeSearch.filter((item) => {
+      const itemData = `${item.nome.toUpperCase()}`;
+      const textData = text.toUpperCase();
+      return itemData.indexOf(textData) > -1;
+    });
+
+    setAtividadeSearch(searchData);
+  };
+
   function associadoDelete(e, id) {
     e.preventDefault();
-    if (window.confirm("Deseja realmente cancelar este cliente ?")) {
+    if (window.confirm("Deseja realmente deletar este atividade ?")) {
       deleteAssociado(id);
     }
   }
 
   async function deleteAssociado(id) {
     try {
-      const url = "/cliente/" + id;
+      const url = "/atividade/" + id;
       await api.delete(url);
       getAssociado();
     } catch (e) {}
   }
 
   async function getAssociado() {
-    const response = await api.get("/cliente/all");
-    setAssociados(response.data);
-    setAssociadosSearch(response.data);
+    let url = `/atividade/all`;
+    const response = await api.get(url);
+    setAtividadeSearch(response.data);
   }
 
   function renderAssociados() {
-    return associadosSearch?.map((d, i) => (
+    return atividadeSearch?.map((d, i) => (
       <tr key={i}>
         <td>{d.nome}</td>
-        <td></td>
         <td></td>
         <td>
           <Button
@@ -98,23 +97,13 @@ export default function Usuario(props) {
     ));
   }
 
-  const handlePesquisa = (text) => {
-    const searchData = associados.filter((item) => {
-      const itemData = `${item.nome.toUpperCase()}`;
-      const textData = text.toUpperCase();
-      return itemData.indexOf(textData) > -1;
-    });
-
-    setAssociadosSearch(searchData);
-  };
-
   return (
     <div className="animated fadeIn">
       <Row>
         <Col xs="12" lg="12">
           <Card>
             <CardHeader>
-              <i className="fa fa-align-justify"></i> Cliente
+              <i className="fa fa-align-justify"></i> Atividade
               <div className="card-header-actions">
                 <Button
                   className="card-header-action btn-setting"
@@ -122,7 +111,7 @@ export default function Usuario(props) {
                     associadoEdit(e);
                   }}
                 >
-                  <i className="icon-note" /> Novo Cliente
+                  <i className="icon-note" /> Novo Atividade
                 </Button>
               </div>
             </CardHeader>
@@ -138,8 +127,10 @@ export default function Usuario(props) {
                       </InputGroupAddon>
                       <Input
                         type="text"
-                        placeholder="Consulte a conta..."
-                        onChange={(e) => handlePesquisa(e.target.value)}
+                        placeholder="Consulte a Atividade..."
+                        onChange={(e) => {
+                          handlePesquisa(e.target.value);
+                        }}
                       />
                     </InputGroup>
                   </FormGroup>
@@ -152,7 +143,6 @@ export default function Usuario(props) {
                     <th>Nome</th>
                     <th></th>
                     <th></th>
-                    <th>Ações</th>
                   </tr>
                 </thead>
                 <tbody>{renderAssociados()}</tbody>

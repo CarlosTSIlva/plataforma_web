@@ -100,6 +100,16 @@ const ProgramacaoView = React.lazy(() =>
   import("./views/Programacao/ProgramacaoView")
 );
 
+const Atividade = React.lazy(() => import("./views/Atividade/Atividade.js"));
+
+const AtividadeEdit = React.lazy(() =>
+  import("./views/Atividade/AtividadeEdit")
+);
+
+const AtividadeView = React.lazy(() =>
+  import("./views/Atividade/AtividadeView")
+);
+
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   { path: "/console", exact: true, name: "Console" },
@@ -139,6 +149,30 @@ const routes = [
     exact: true,
     name: "Programação",
     component: ProgramacaoView,
+  },
+  {
+    path: "/console/atividade",
+    exact: true,
+    name: "Programação",
+    component: Atividade,
+  },
+  {
+    path: "/console/atividade/edit",
+    exact: true,
+    name: "Programação",
+    component: AtividadeEdit,
+  },
+  {
+    path: "/console/atividade/edit/:id",
+    exact: true,
+    name: "Programação",
+    component: AtividadeEdit,
+  },
+  {
+    path: "/console/atividade/view",
+    exact: true,
+    name: "Programação",
+    component: AtividadeView,
   },
   {
     path: "/console/usuario/edit",
