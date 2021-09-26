@@ -54,6 +54,36 @@ export default {
       url: "/console/atividade",
       icon: "icon-people",
     },
+    {
+      name: "Atividade Item",
+      url: "/console/atividade_item",
+      icon: "icon-people",
+    },
+    {
+      name: "Alerta",
+      url: "/console/alerta",
+      icon: "icon-people",
+    },
+    {
+      name: "Execucao",
+      url: "/console/execucao",
+      icon: "icon-people",
+    },
+    {
+      name: "Justificativa",
+      url: "/console/justificativa",
+      icon: "icon-people",
+    },
+    {
+      name: "Ocorrencia",
+      url: "/console/ocorrencia",
+      icon: "icon-people",
+    },
+    {
+      name: "Resposta",
+      url: "/console/resposta",
+      icon: "icon-people",
+    },
     // {
     //   name: "Encomenda",
     //   url: "/console/encomenda",

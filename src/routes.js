@@ -110,9 +110,132 @@ const AtividadeView = React.lazy(() =>
   import("./views/Atividade/AtividadeView")
 );
 
+const AtividadeItem = React.lazy(() =>
+  import("./views/AtividadeItem/AtividadeItem")
+);
+
+const AtividadeItemEdit = React.lazy(() =>
+  import("./views/AtividadeItem/AtividadeItemEdit")
+);
+
+const Execucao = React.lazy(() => import("./views/Execucao/Execucao"));
+const ExecucaoEdit = React.lazy(() => import("./views/Execucao/ExecucaoEdit"));
+
+const Justificativa = React.lazy(() =>
+  import("./views/Justificativa/Justificativa")
+);
+const JustificativaEdit = React.lazy(() =>
+  import("./views/Justificativa/JustificativaEdit")
+);
+
+const Ocorrencia = React.lazy(() => import("./views/Ocorrencia/Ocorrencia"));
+const OcorrenciaEdit = React.lazy(() =>
+  import("./views/Ocorrencia/OcorrenciaEdit")
+);
+
+const Alerta = React.lazy(() => import("./views/Alerta/Alerta"));
+const AlertaEdit = React.lazy(() => import("./views/Alerta/AlertaEdit"));
+
+const Resposta = React.lazy(() => import("./views/Resposta/Resposta"));
+const RespostaEdit = React.lazy(() => import("./views/Resposta/RespostaEdit"));
+
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   { path: "/console", exact: true, name: "Console" },
+  {
+    path: "/console/execucao/",
+    exact: true,
+    name: "Execução",
+    component: Execucao,
+  },
+  {
+    path: "/console/execucao/edit",
+    exact: true,
+    name: "Execução Novo",
+    component: ExecucaoEdit,
+  },
+  {
+    path: "/console/execucao/edit/:id",
+    exact: true,
+    name: "Execução Edit",
+    component: ExecucaoEdit,
+  },
+
+  {
+    path: "/console/justificativa/",
+    exact: true,
+    name: "Justificativa",
+    component: Justificativa,
+  },
+  {
+    path: "/console/justificativa/edit",
+    exact: true,
+    name: "Justificativa Novo",
+    component: JustificativaEdit,
+  },
+  {
+    path: "/console/justificativa/edit/:id",
+    exact: true,
+    name: "Justificativa Edit",
+    component: JustificativaEdit,
+  },
+
+  {
+    path: "/console/ocorrencia/",
+    exact: true,
+    name: "Ocorrencia",
+    component: Ocorrencia,
+  },
+  {
+    path: "/console/ocorrencia/edit",
+    exact: true,
+    name: "Ocorrencia Novo",
+    component: OcorrenciaEdit,
+  },
+  {
+    path: "/console/ocorrencia/edit/:id",
+    exact: true,
+    name: "Ocorrencia Edit",
+    component: OcorrenciaEdit,
+  },
+
+  {
+    path: "/console/alerta/",
+    exact: true,
+    name: "Alerta",
+    component: Alerta,
+  },
+  {
+    path: "/console/alerta/edit",
+    exact: true,
+    name: "Alerta novo",
+    component: AlertaEdit,
+  },
+  {
+    path: "/console/alerta/edit/:id",
+    exact: true,
+    name: "Alerta edit",
+    component: AlertaEdit,
+  },
+
+  {
+    path: "/console/resposta/",
+    exact: true,
+    name: "Resposta",
+    component: Resposta,
+  },
+  {
+    path: "/console/resposta/edit",
+    exact: true,
+    name: "Resposta Novo",
+    component: RespostaEdit,
+  },
+  {
+    path: "/console/resposta/edit/:id",
+    exact: true,
+    name: "Resposta Edit",
+    component: RespostaEdit,
+  },
   {
     path: "/console/interfone",
     exact: true,
@@ -167,6 +290,24 @@ const routes = [
     exact: true,
     name: "Programação",
     component: AtividadeEdit,
+  },
+  {
+    path: "/console/atividade_item/",
+    exact: true,
+    name: "Programação",
+    component: AtividadeItem,
+  },
+  {
+    path: "/console/atividade_item/edit",
+    exact: true,
+    name: "Programação",
+    component: AtividadeItemEdit,
+  },
+  {
+    path: "/console/atividade_item/edit/:id",
+    exact: true,
+    name: "Programação",
+    component: AtividadeItemEdit,
   },
   {
     path: "/console/atividade/view",
