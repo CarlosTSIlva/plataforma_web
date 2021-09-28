@@ -125,7 +125,7 @@ export default function Programacao(props) {
         <Col xs="12" lg="12">
           <Card>
             <CardHeader>
-              <i className="fa fa-align-justify"></i> Conta
+              <i className="fa fa-align-justify"></i> Programação
               <div className="card-header-actions">
                 <Button
                   className="card-header-action btn-setting"

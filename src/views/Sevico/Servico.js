@@ -148,7 +148,7 @@ export default function Servico(props) {
                     associadoEdit(e);
                   }}
                 >
-                  <i className="icon-note" /> Nova Serviço
+                  <i className="icon-note" /> Novo Serviço
                 </Button>
               </div>
             </CardHeader>

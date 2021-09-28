@@ -294,7 +294,7 @@ const routes = [
   {
     path: "/console/atividade_item/",
     exact: true,
-    name: "Programação",
+    name: "Atividade Item",
     component: AtividadeItem,
   },
   {

@@ -128,7 +128,7 @@ export default function PostoTrabalho(props) {
         <Col xs="12" lg="12">
           <Card>
             <CardHeader>
-              <i className="fa fa-align-justify"></i> Posto de trabalho
+              <i className="fa fa-align-justify"></i> Posto de Trabalho
               <div className="card-header-actions">
                 <Button
                   className="card-header-action btn-setting"
@@ -136,7 +136,7 @@ export default function PostoTrabalho(props) {
                     associadoEdit(e);
                   }}
                 >
-                  <i className="icon-note" /> Nova Posto de trabalho
+                  <i className="icon-note" /> Nova Posto de Trabalho
                 </Button>
               </div>
             </CardHeader>
@@ -152,7 +152,7 @@ export default function PostoTrabalho(props) {
                       </InputGroupAddon>
                       <Input
                         type="text"
-                        placeholder="Consulte o seu posto de trabalho..."
+                        placeholder="Consulte o seu Posto de Trabalho..."
                         onChange={(e) => handlePesquisa(e.target.value)}
                       />
                     </InputGroup>

@@ -138,7 +138,7 @@ export default function Usuario(props) {
                       </InputGroupAddon>
                       <Input
                         type="text"
-                        placeholder="Consulte a conta..."
+                        placeholder="Consulte o Cliente..."
                         onChange={(e) => handlePesquisa(e.target.value)}
                       />
                     </InputGroup>

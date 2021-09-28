@@ -89,7 +89,7 @@ export default function Usuario(props) {
                       associadoEdit(e);
                     }}
                   >
-                    <i className="icon-note" /> Novo usuário
+                    <i className="icon-note" /> Novo Usuário
                   </Button>
                 </div>
               </CardHeader>
@@ -105,7 +105,7 @@ export default function Usuario(props) {
                         </InputGroupAddon>
                         <Input
                           type="text"
-                          placeholder="Consulte a usuário..."
+                          placeholder="Consulte a Usuário..."
                           onChange={(e) => handlePesquisa(e.target.value)}
                         />
                       </InputGroup>

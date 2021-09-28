@@ -111,7 +111,7 @@ export default function AtividadeItem(props) {
                     associadoEdit(e);
                   }}
                 >
-                  <i className="icon-note" /> Novo Ocorrencia
+                  <i className="icon-note" /> Nova Ocorrencia
                 </Button>
               </div>
             </CardHeader>

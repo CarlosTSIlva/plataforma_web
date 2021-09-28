@@ -111,7 +111,7 @@ export default function Resposta(props) {
                     associadoEdit(e);
                   }}
                 >
-                  <i className="icon-note" /> Novo Atividade
+                  <i className="icon-note" /> Nova Resposta
                 </Button>
               </div>
             </CardHeader>
@@ -140,7 +140,7 @@ export default function Resposta(props) {
               <Table className="table table-responsive-sm table-hover table-outline mb-0">
                 <thead className="thead-light">
                   <tr className="text-left">
-                    <th>Tempo validacao</th>
+                    <th>Tempo validação</th>
                     <th>Validar código</th>
                     <th></th>
                   </tr>
