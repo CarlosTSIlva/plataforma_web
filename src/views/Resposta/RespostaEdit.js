@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 
+import Select from "react-select";
 import api from "../../services/api";
 
 import {
@@ -23,10 +24,12 @@ const formValidateInitialState = {};
 export default function RespostaEdit(props) {
   const [associado, setAssociado] = useState(associadoInitialState);
   const [formValidate, setFormValidate] = useState(formValidateInitialState);
-
+  const [dados, setDados] = useState({});
+  const [alerta, setAlerta] = useState([]);
   let { id } = useParams();
 
   useEffect(() => {
+    getAlertas();
     if (!!id) {
       getAssociado();
       setFormValidate({});
@@ -51,6 +54,16 @@ export default function RespostaEdit(props) {
       createAssociado();
     }
   }
+
+  const getAlertas = async () => {
+    const response = await api.get("alerta/all");
+    const dados = [];
+    for (const dadus of response.data) {
+      console.log(dadus);
+      dados.push({ value: dadus.id, label: dadus.nome });
+    }
+    setAlerta(dados);
+  };
 
   async function createAssociado() {
     try {
@@ -155,6 +168,34 @@ export default function RespostaEdit(props) {
                       }
                     />
                     <FormFeedback>{formValidate.tempo_validacao}</FormFeedback>
+                  </FormGroup>
+                </Col>
+                <Col xs="12" sm="6" md="4">
+                  <FormGroup>
+                    <Label>Alerta</Label>
+                    <Select
+                      placeholder="Selecione..."
+                      options={alerta}
+                      value={dados}
+                      onChange={(e) => {
+                        setDados(e);
+                        setAssociado({
+                          ...associado,
+                          usuario: {
+                            ...associado.usuario,
+                            id_alerta: e.value,
+                          },
+                        });
+                      }}
+                      theme={(theme) => ({
+                        ...theme,
+                        colors: {
+                          ...theme.colors,
+                          primary25: "#54ff9d",
+                          primary: "#219653",
+                        },
+                      })}
+                    />
                   </FormGroup>
                 </Col>
               </Row>

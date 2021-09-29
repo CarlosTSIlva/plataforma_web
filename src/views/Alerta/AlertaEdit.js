@@ -16,6 +16,7 @@ import {
   FormFeedback,
 } from "reactstrap";
 import { useParams } from "react-router";
+import Select from "react-select";
 
 const associadoInitialState = {};
 const formValidateInitialState = {};
@@ -23,15 +24,27 @@ const formValidateInitialState = {};
 export default function AtividadeItemEdit(props) {
   const [associado, setAssociado] = useState(associadoInitialState);
   const [formValidate, setFormValidate] = useState(formValidateInitialState);
+  const [dados, setDados] = useState({});
+  const [servico, setServico] = useState([]);
 
   let { id } = useParams();
 
   useEffect(() => {
+    getServico();
     if (!!id) {
       getAssociado();
       setFormValidate({});
     }
   }, []);
+
+  const getServico = async () => {
+    const response = await api.get("servico/all");
+    const dados = [];
+    for (const dadus of response.data) {
+      dados.push({ value: dadus.id, label: dadus.nome });
+    }
+    setServico(dados);
+  };
 
   async function getAssociado() {
     try {
@@ -352,6 +365,34 @@ export default function AtividadeItemEdit(props) {
                       }
                     />
                     <FormFeedback>{formValidate.intervalo}</FormFeedback>
+                  </FormGroup>
+                </Col>
+                <Col xs="12" sm="6" md="4">
+                  <FormGroup>
+                    <Label>Serviço</Label>
+                    <Select
+                      placeholder="Selecione..."
+                      options={servico}
+                      value={dados}
+                      onChange={(e) => {
+                        setDados(e);
+                        setAssociado({
+                          ...associado,
+                          usuario: {
+                            ...associado.usuario,
+                            id_servico: e.value,
+                          },
+                        });
+                      }}
+                      theme={(theme) => ({
+                        ...theme,
+                        colors: {
+                          ...theme.colors,
+                          primary25: "#54ff9d",
+                          primary: "#219653",
+                        },
+                      })}
+                    />
                   </FormGroup>
                 </Col>
               </Row>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import api from "../../services/api";
+import Select from "react-select";
 
 import {
   Button,
@@ -23,15 +24,26 @@ const formValidateInitialState = {};
 export default function AtividadeItemEdit(props) {
   const [associado, setAssociado] = useState(associadoInitialState);
   const [formValidate, setFormValidate] = useState(formValidateInitialState);
-
+  const [dados, setDados] = useState({});
+  const [atividadeItem, setAtividadeItem] = useState([]);
   let { id } = useParams();
 
   useEffect(() => {
+    getAtividadeItem();
     if (!!id) {
       getAssociado();
       setFormValidate({});
     }
   }, []);
+
+  const getAtividadeItem = async () => {
+    const response = await api.get("item/all");
+    const dados = [];
+    for (const dadus of response.data) {
+      dados.push({ value: dadus.id, label: dadus.nome });
+    }
+    setAtividadeItem(dados);
+  };
 
   async function getAssociado() {
     try {
@@ -174,6 +186,35 @@ export default function AtividadeItemEdit(props) {
                     <Label check>
                       <Input type="checkbox" id="checkbox2" /> Imagem
                     </Label>
+                  </FormGroup>
+                </Col>
+
+                <Col xs="12" sm="6" md="4">
+                  <FormGroup>
+                    <Label>Atividade Item</Label>
+                    <Select
+                      placeholder="Selecione..."
+                      options={atividadeItem}
+                      value={dados}
+                      onChange={(e) => {
+                        setDados(e);
+                        setAssociado({
+                          ...associado,
+                          usuario: {
+                            ...associado.usuario,
+                            id_atividade_item: e.value,
+                          },
+                        });
+                      }}
+                      theme={(theme) => ({
+                        ...theme,
+                        colors: {
+                          ...theme.colors,
+                          primary25: "#54ff9d",
+                          primary: "#219653",
+                        },
+                      })}
+                    />
                   </FormGroup>
                 </Col>
               </Row>
