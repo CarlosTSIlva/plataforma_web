@@ -23,7 +23,6 @@ export default function ServicoView(props) {
 
   useEffect(() => {
     getAssociado();
-    return () => {};
   }, []);
 
   async function getAssociado() {

@@ -47,14 +47,23 @@ export default function ServicoEdit(props) {
   const [optionTipoAssociado, setTipoAssociado] = useState({});
   const [optionUnidadeHabitacional, setUnidadeHabitacional] = useState({});
   const [optionStatusAssociado, setStatusAssociado] = useState({});
-  const [optionSexo, setSexo] = useState({});
-  const [optionAssociadoTitular, setAssociadoTitular] = useState({});
+  const [postoTrabalho, setPostoTrabalho] = useState({});
+  const [dados, setDados] = useState({});
   const { id } = useParams();
 
   useEffect(() => {
     loadPage();
-    return () => {};
+    getPostTrabalho();
   }, []);
+
+  const getPostTrabalho = async () => {
+    const response = await api.get("postotrabalho/all");
+    const dados = [];
+    for (const dadus of response.data) {
+      dados.push({ value: dadus.id, label: dadus.nome });
+    }
+    setPostoTrabalho(dados);
+  };
 
   async function loadPage() {
     if (id) {
@@ -159,10 +168,17 @@ export default function ServicoEdit(props) {
                     <Label>Posto Trabalho</Label>
                     <Select
                       placeholder="Selecione..."
-                      options={optionsStatusAssociado}
-                      value={optionStatusAssociado}
-                      onChange={(selectedOption) => {
-                        setStatusAssociado(selectedOption);
+                      options={postoTrabalho}
+                      value={dados}
+                      onChange={(e) => {
+                        setDados(e);
+                        setAssociado({
+                          ...associado,
+                          usuario: {
+                            ...associado.usuario,
+                            id_posto_trabalho: e.value,
+                          },
+                        });
                       }}
                       theme={(theme) => ({
                         ...theme,

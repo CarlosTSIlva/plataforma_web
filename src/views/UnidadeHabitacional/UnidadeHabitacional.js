@@ -21,7 +21,6 @@ export default function UnidadeHabitacional(props) {
 
   useEffect(() => {
     getUnidadeHabitacional();
-    return () => {};
   }, []);
 
   /*

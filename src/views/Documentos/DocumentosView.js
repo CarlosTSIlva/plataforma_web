@@ -31,7 +31,6 @@ export default function DocumentosView(props) {
 
   useEffect(() => {
     getDocumento();
-    return () => {};
   }, []);
 
   async function getDocumento() {

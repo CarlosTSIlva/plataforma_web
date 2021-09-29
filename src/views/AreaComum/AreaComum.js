@@ -23,7 +23,6 @@ export default function AreaComum(props) {
 
   useEffect(() => {
     getAreaComum();
-    return () => {};
   }, []);
 
   function areaComumEdit(e, id = 0, mode = "insert") {

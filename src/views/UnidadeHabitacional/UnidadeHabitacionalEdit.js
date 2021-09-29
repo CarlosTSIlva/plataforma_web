@@ -51,7 +51,6 @@ export default function UnidadeHabitacionalEdit(props) {
 
   useEffect(() => {
     loadPage();
-    return () => {};
   }, []);
 
   /*

@@ -38,7 +38,6 @@ export default function Servico(props) {
   const [optionStatusAssociado, setStatusAssociado] = useState({});
   useEffect(() => {
     getUnidadeHabitacional();
-    return () => {};
   }, []);
 
   useEffect(() => {

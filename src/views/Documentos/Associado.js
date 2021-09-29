@@ -43,7 +43,6 @@ export default function Associado(props) {
 
   useEffect(() => {
     getUnidadeHabitacional();
-    return () => {};
   }, []);
 
   useEffect(() => {

@@ -16,6 +16,7 @@ import {
   FormFeedback,
 } from "reactstrap";
 import { useParams } from "react-router";
+import Select from "react-select";
 
 const associadoInitialState = {};
 const formValidateInitialState = {};
@@ -23,15 +24,39 @@ const formValidateInitialState = {};
 export default function AtividadeEdit(props) {
   const [associado, setAssociado] = useState(associadoInitialState);
   const [formValidate, setFormValidate] = useState(formValidateInitialState);
+  const [dados1, setDados1] = useState({});
+  const [dados2, setDados2] = useState({});
+  const [servico, setServico] = useState([]);
+  const [pontocontrole, setPontoControle] = useState([]);
 
   let { id } = useParams();
 
   useEffect(() => {
+    getServico();
+    getPontoControle();
     if (id) {
       getAssociado();
       setFormValidate({});
     }
   }, []);
+
+  const getServico = async () => {
+    const response = await api.get("servico/all");
+    const dados = [];
+    for (const dadus of response.data) {
+      dados.push({ value: dadus.id, label: dadus.nome });
+    }
+    setServico(dados);
+  };
+
+  const getPontoControle = async () => {
+    const response = await api.get("pontocontrole/all");
+    const dados = [];
+    for (const dadus of response.data) {
+      dados.push({ value: dadus.id, label: dadus.nome });
+    }
+    setPontoControle(dados);
+  };
 
   async function getAssociado() {
     try {
@@ -58,8 +83,6 @@ export default function AtividadeEdit(props) {
 
       const data = {
         ...rest,
-        id_ponto_controle: 10,
-        id_servico: 41,
         ordem_atividade: 0,
       };
       const url = "/atividade/create";
@@ -334,6 +357,62 @@ export default function AtividadeEdit(props) {
                       }
                     />
                     <FormFeedback>{formValidate.tempo_limite}</FormFeedback>
+                  </FormGroup>
+                </Col>
+                <Col xs="12" sm="6" md="4">
+                  <FormGroup>
+                    <Label>Serviço</Label>
+                    <Select
+                      placeholder="Selecione..."
+                      options={servico}
+                      value={dados1}
+                      onChange={(e) => {
+                        setDados1(e);
+                        setAssociado({
+                          ...associado,
+                          usuario: {
+                            ...associado.usuario,
+                            id_servico: e.value,
+                          },
+                        });
+                      }}
+                      theme={(theme) => ({
+                        ...theme,
+                        colors: {
+                          ...theme.colors,
+                          primary25: "#54ff9d",
+                          primary: "#219653",
+                        },
+                      })}
+                    />
+                  </FormGroup>
+                </Col>
+                <Col xs="12" sm="6" md="4">
+                  <FormGroup>
+                    <Label>Ponto controle</Label>
+                    <Select
+                      placeholder="Selecione..."
+                      options={pontocontrole}
+                      value={dados2}
+                      onChange={(e) => {
+                        setDados2(e);
+                        setAssociado({
+                          ...associado,
+                          usuario: {
+                            ...associado.usuario,
+                            id_ponto_controle: e.value,
+                          },
+                        });
+                      }}
+                      theme={(theme) => ({
+                        ...theme,
+                        colors: {
+                          ...theme.colors,
+                          primary25: "#54ff9d",
+                          primary: "#219653",
+                        },
+                      })}
+                    />
                   </FormGroup>
                 </Col>
               </Row>

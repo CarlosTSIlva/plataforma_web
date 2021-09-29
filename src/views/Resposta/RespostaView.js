@@ -23,7 +23,6 @@ export default function RespostaItem(props) {
 
   useEffect(() => {
     getAssociado();
-    return () => {};
   }, []);
 
   async function getAssociado() {

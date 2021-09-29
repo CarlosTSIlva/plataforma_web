@@ -23,7 +23,6 @@ export default function AtividadeViewItem(props) {
 
   useEffect(() => {
     getAssociado();
-    return () => {};
   }, []);
 
   async function getAssociado() {

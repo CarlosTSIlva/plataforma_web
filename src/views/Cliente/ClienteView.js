@@ -23,7 +23,6 @@ export default function ClienteView(props) {
 
   useEffect(() => {
     getAssociado();
-    return () => {};
   }, []);
 
   async function getAssociado() {

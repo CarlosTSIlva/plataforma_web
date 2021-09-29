@@ -43,7 +43,6 @@ export default function Estabelecimento(props) {
 
   useEffect(() => {
     getUnidadeHabitacional();
-    return () => {};
   }, []);
 
   useEffect(() => {

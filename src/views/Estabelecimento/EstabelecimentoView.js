@@ -23,7 +23,6 @@ export default function EstabelecimentoView(props) {
 
   useEffect(() => {
     getAssociado();
-    return () => {};
   }, []);
 
   async function getAssociado() {

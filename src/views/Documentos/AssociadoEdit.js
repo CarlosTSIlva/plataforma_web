@@ -97,7 +97,6 @@ export default function AssociadoEdit(props) {
 
   useEffect(() => {
     loadPage();
-    return () => {};
   }, []);
 
   async function loadPage() {

@@ -38,12 +38,24 @@ export default function ProgramacaoEdit(props) {
   const [formValidate, setFormValidate] = useState(formValidateInitialState);
   const [loading, setLoading] = useState(true);
   const [optionStatusAssociado, setStatusAssociado] = useState({});
+  const [dados, setDados] = useState({});
+  const [programcao, setProgramacao] = useState([]);
+
   const { id } = useParams();
 
   useEffect(() => {
     loadPage();
-    return () => {};
+    getProgramacao();
   }, []);
+
+  const getProgramacao = async () => {
+    const response = await api.get("servico/all");
+    const dados = [];
+    for (const dadus of response.data) {
+      dados.push({ value: dadus.id, label: dadus.nome });
+    }
+    setProgramacao(dados);
+  };
 
   async function loadPage() {
     if (id) {
@@ -129,15 +141,22 @@ export default function ProgramacaoEdit(props) {
                 </CardHeader>
                 <CardBody>
                   <Row>
-                    <Col xs="12" md="4">
+                    <Col xs="12" sm="6" md="4">
                       <FormGroup>
-                        <Label>Servico</Label>
+                        <Label>Serviço</Label>
                         <Select
                           placeholder="Selecione..."
-                          options={optionsStatusAssociado}
-                          value={optionStatusAssociado}
-                          onChange={(selectedOption) => {
-                            setStatusAssociado(selectedOption);
+                          options={programcao}
+                          value={dados}
+                          onChange={(e) => {
+                            setDados(e);
+                            setAssociado({
+                              ...associado,
+                              usuario: {
+                                ...associado.usuario,
+                                id_servico: e.value,
+                              },
+                            });
                           }}
                           theme={(theme) => ({
                             ...theme,

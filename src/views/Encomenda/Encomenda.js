@@ -53,7 +53,6 @@ export default function Encomenda(props) {
 
   useEffect(() => {
     getUnidadeHabitacional();
-    return () => {};
   }, []);
 
   useEffect(() => {

@@ -24,7 +24,6 @@ export default function TelefoneUtil(props) {
 
   useEffect(() => {
     listTelefoneUtil();
-    return () => {};
   }, []);
 
   function telefoneUtilEdit(e, id = 0, mode = "insert") {

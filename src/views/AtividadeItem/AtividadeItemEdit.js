@@ -16,6 +16,7 @@ import {
   FormFeedback,
 } from "reactstrap";
 import { useParams } from "react-router";
+import Select from "react-select";
 
 const associadoInitialState = {};
 const formValidateInitialState = {};
@@ -23,10 +24,12 @@ const formValidateInitialState = {};
 export default function AtividadeItemEdit(props) {
   const [associado, setAssociado] = useState(associadoInitialState);
   const [formValidate, setFormValidate] = useState(formValidateInitialState);
-
+  const [dados, setDados] = useState({});
+  const [atividade, setAtividade] = useState([]);
   let { id } = useParams();
 
   useEffect(() => {
+    getAtividade();
     if (!!id) {
       getAssociado();
       setFormValidate({});
@@ -52,6 +55,15 @@ export default function AtividadeItemEdit(props) {
     }
   }
 
+  const getAtividade = async () => {
+    const response = await api.get("atividade/all");
+    const dados = [];
+    for (const dadus of response.data) {
+      dados.push({ value: dadus.id, label: dadus.nome });
+    }
+    setAtividade(dados);
+  };
+
   async function createAssociado() {
     try {
       const { password_valid, ...rest } = associado.atividade;
@@ -59,7 +71,6 @@ export default function AtividadeItemEdit(props) {
       const data = {
         ...rest,
         flag_imagem: true,
-        id_atividade: 41,
         imagem: 0,
       };
       const url = "/item/create";
@@ -148,6 +159,34 @@ export default function AtividadeItemEdit(props) {
                     <Label check>
                       <Input type="checkbox" id="checkbox2" /> Imagem
                     </Label>
+                  </FormGroup>
+                </Col>
+                <Col xs="12" sm="6" md="4">
+                  <FormGroup>
+                    <Label>atividade</Label>
+                    <Select
+                      placeholder="Selecione..."
+                      options={atividade}
+                      value={dados}
+                      onChange={(e) => {
+                        setDados(e);
+                        setAssociado({
+                          ...associado,
+                          usuario: {
+                            ...associado.usuario,
+                            id_atividade: e.value,
+                          },
+                        });
+                      }}
+                      theme={(theme) => ({
+                        ...theme,
+                        colors: {
+                          ...theme.colors,
+                          primary25: "#54ff9d",
+                          primary: "#219653",
+                        },
+                      })}
+                    />
                   </FormGroup>
                 </Col>
               </Row>

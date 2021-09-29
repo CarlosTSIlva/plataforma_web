@@ -37,22 +37,27 @@ var _optionsUnidadeHabitacional = [];
 export default function PostoTrabalhoEdit(props) {
   const [associado, setAssociado] = useState({});
   const [formValidate, setFormValidate] = useState(formValidateInitialState);
-
+  const [estabelecimento, setEstabelecimento] = useState([]);
+  const [dados, setDados] = useState({});
   const { id } = useParams();
 
-  const user_info = useSelector((state) => state.user);
-  api.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem(
-    "crcl-web-token"
-  )}`;
+  const getEstabelecimento = async () => {
+    const response = await api.get("estabelecimento/all");
+    const dados = [];
+    for (const dadus of response.data) {
+      dados.push({ value: dadus.id, label: dadus.nome });
+    }
+    setEstabelecimento(dados);
+  };
 
   useEffect(async () => {
+    getEstabelecimento();
     if (id) {
       const response = await api.get(`/postotrabalho/${id}`);
       console.log("response ", response.data.data);
       setAssociado({ ...associado, usuario: response.data.data });
     } else {
       loadPage();
-      return () => {};
     }
   }, []);
 
@@ -76,7 +81,6 @@ export default function PostoTrabalhoEdit(props) {
       const url = "/postotrabalho/create";
       const response = await api.post(url, {
         ...associado.usuario,
-        id_estabelecimento: 1,
       });
       if (response.data.status === "OK") {
         setAssociado({});
@@ -177,6 +181,34 @@ export default function PostoTrabalhoEdit(props) {
                       invalid={formValidate.nome ? true : false}
                     />
                     <FormFeedback>{formValidate.nome}</FormFeedback>
+                  </FormGroup>
+                </Col>
+                <Col xs="12" sm="6" md="4">
+                  <FormGroup>
+                    <Label>Estabelecimento</Label>
+                    <Select
+                      placeholder="Selecione..."
+                      options={estabelecimento}
+                      value={dados}
+                      onChange={(e) => {
+                        setDados(e);
+                        setAssociado({
+                          ...associado,
+                          usuario: {
+                            ...associado.usuario,
+                            id_estabelecimento: e.value,
+                          },
+                        });
+                      }}
+                      theme={(theme) => ({
+                        ...theme,
+                        colors: {
+                          ...theme.colors,
+                          primary25: "#54ff9d",
+                          primary: "#219653",
+                        },
+                      })}
+                    />
                   </FormGroup>
                 </Col>
               </Row>

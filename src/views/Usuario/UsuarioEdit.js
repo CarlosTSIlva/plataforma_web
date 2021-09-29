@@ -41,15 +41,25 @@ var _optionsUnidadeHabitacional = [];
 export default function UsuarioEdit(props) {
   const [associado, setAssociado] = useState(associadoInitialState);
   const [formValidate, setFormValidate] = useState(formValidateInitialState);
-
+  const [cliente, setClient] = useState([]);
   const [optionStatusAssociado, setStatusAssociado] = useState({});
+  const [dados, setDados] = useState({});
   const [optionSexo, setSexo] = useState({});
   let { id } = useParams();
 
   useEffect(async () => {
+    getClients();
     await loadPage();
-    return () => {};
   }, []);
+
+  const getClients = async () => {
+    const resposne = await api.get(`cliente/all`);
+    const dados = [];
+    for (const dadus of resposne.data) {
+      dados.push({ value: dadus.id, label: dadus.nome });
+    }
+    setClient(dados);
+  };
 
   function loadPage() {
     if (!id) {
@@ -83,7 +93,6 @@ export default function UsuarioEdit(props) {
 
       const data = {
         ...rest,
-        id_cliente: 10,
         ativo: optionStatusAssociado.value == 1 ? true : false,
       };
       const url = "/usuario/create";
@@ -119,6 +128,10 @@ export default function UsuarioEdit(props) {
       }
     } catch (e) {}
   }
+
+  useEffect(() => {
+    console.log(associado.usuario);
+  }, [associado]);
 
   return (
     <div className="animated fadeIn">
@@ -370,6 +383,34 @@ export default function UsuarioEdit(props) {
                       value={optionSexo}
                       onChange={(selectedOption) => {
                         setSexo(selectedOption);
+                      }}
+                      theme={(theme) => ({
+                        ...theme,
+                        colors: {
+                          ...theme.colors,
+                          primary25: "#54ff9d",
+                          primary: "#219653",
+                        },
+                      })}
+                    />
+                  </FormGroup>
+                </Col>
+                <Col xs="12" sm="6" md="4">
+                  <FormGroup>
+                    <Label>Cliente</Label>
+                    <Select
+                      placeholder="Selecione..."
+                      options={cliente}
+                      value={dados}
+                      onChange={(e) => {
+                        setDados(e);
+                        setAssociado({
+                          ...associado,
+                          usuario: {
+                            ...associado.usuario,
+                            id_cliente: e.value,
+                          },
+                        });
                       }}
                       theme={(theme) => ({
                         ...theme,

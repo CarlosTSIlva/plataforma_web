@@ -23,7 +23,6 @@ export default function PostoTrabalhoView(props) {
 
   useEffect(() => {
     getAssociado();
-    return () => {};
   }, []);
 
   async function getAssociado() {

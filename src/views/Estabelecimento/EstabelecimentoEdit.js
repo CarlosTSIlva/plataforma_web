@@ -71,27 +71,29 @@ var _optionsUnidadeHabitacional = [];
 export default function EstabelecimentoEdit(props) {
   const [associado, setAssociado] = useState(associadoInitialState);
   const [formValidate, setFormValidate] = useState(formValidateInitialState);
-  const [optionsUnidadeHabitacional, setOptionsUnidadeHabitacional] = useState(
-    []
-  );
-  const [optionsTipoAssociado, setOptionsTipoAssociado] = useState([]);
   const [optionTipoAssociado, setTipoAssociado] = useState({});
   const [optionUnidadeHabitacional, setUnidadeHabitacional] = useState({});
   const [optionStatusAssociado, setStatusAssociado] = useState({});
-  const [optionSexo, setSexo] = useState({});
-  const [optionAssociadoTitular, setAssociadoTitular] = useState({});
+  const [cliente, setClient] = useState([]);
+  const [dados, setDados] = useState({});
   const { id } = useParams();
-  const user_info = useSelector((state) => state.user);
-  api.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem(
-    "crcl-web-token"
-  )}`;
 
   useEffect(() => {
+    getClients();
+
     loadPage();
-    return () => {};
   }, []);
 
-  async function loadPage() {
+  const getClients = async () => {
+    const resposne = await api.get(`cliente/all`);
+    const dados = [];
+    for (const dadus of resposne.data) {
+      dados.push({ value: dadus.id, label: dadus.nome });
+    }
+    setClient(dados);
+  };
+
+  function loadPage() {
     if (id) {
       getAssociado();
       setFormValidate({});
@@ -144,7 +146,6 @@ export default function EstabelecimentoEdit(props) {
       console.log(associado.usuari);
       const response = await api.post(url, {
         ...associado.usuario,
-        id_cliente: 10,
       });
       if (response.data.status === "OK") {
         setAssociado(associadoInitialState);
@@ -466,6 +467,34 @@ export default function EstabelecimentoEdit(props) {
                           : ""
                       }
                       required
+                    />
+                  </FormGroup>
+                </Col>
+                <Col xs="12" sm="6" md="4">
+                  <FormGroup>
+                    <Label>Cliente</Label>
+                    <Select
+                      placeholder="Selecione..."
+                      options={cliente}
+                      value={dados}
+                      onChange={(e) => {
+                        setDados(e);
+                        setAssociado({
+                          ...associado,
+                          usuario: {
+                            ...associado.usuario,
+                            id_cliente: e.value,
+                          },
+                        });
+                      }}
+                      theme={(theme) => ({
+                        ...theme,
+                        colors: {
+                          ...theme.colors,
+                          primary25: "#54ff9d",
+                          primary: "#219653",
+                        },
+                      })}
                     />
                   </FormGroup>
                 </Col>

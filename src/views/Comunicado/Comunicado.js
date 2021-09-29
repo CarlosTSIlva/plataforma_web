@@ -25,7 +25,6 @@ export default function Comunicado(props) {
 
   useEffect(() => {
     getComunicado();
-    return () => {};
   }, []);
 
   function comunicadoEdit(e, id = 0, mode = "insert") {
