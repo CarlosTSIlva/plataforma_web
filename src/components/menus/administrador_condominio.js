@@ -29,14 +29,15 @@ export default {
       url: "/console/usuario",
       icon: "icon-people",
     },
-    {
-      name: "Posto Trabalho",
-      url: "/console/posto_trabalho",
-      icon: "icon-people",
-    },
+
     {
       name: "Estabelecimento",
       url: "/console/estabelecimento",
+      icon: "icon-people",
+    },
+    {
+      name: "Posto Trabalho",
+      url: "/console/posto_trabalho",
       icon: "icon-people",
     },
     {

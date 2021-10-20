@@ -196,7 +196,7 @@ export default function ServicoEdit(props) {
                     <Label>Nome</Label>
                     <Input
                       type="text"
-                      placeholder="Preencha o nome."
+                      placeholder="Preencha o Nome."
                       onChange={(e) => {
                         setAssociado({
                           ...associado,
@@ -229,7 +229,7 @@ export default function ServicoEdit(props) {
                     <Label>Duração</Label>
                     <Input
                       type="text"
-                      placeholder="Preencha a duraçao."
+                      placeholder="Preencha a Duração."
                       onChange={(e) => {
                         setAssociado({
                           ...associado,
@@ -266,7 +266,7 @@ export default function ServicoEdit(props) {
                     <Input
                       type="text"
                       id="descricao"
-                      placeholder="Preencha o controle..."
+                      placeholder="Preencha o Controle..."
                       onChange={(e) => {
                         setAssociado({
                           ...associado,

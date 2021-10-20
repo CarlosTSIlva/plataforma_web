@@ -80,6 +80,7 @@ export default function ClienteEdit(props) {
                     <Label>Nome</Label>
                     <Input
                       type="text"
+                      placeholder="Preencha com o Nome"
                       onChange={(e) => {
                         setAssociado({
                           ...associado,
@@ -110,6 +111,7 @@ export default function ClienteEdit(props) {
                   <FormGroup>
                     <Label>Razão Social</Label>
                     <Input
+                      placeholder="Preencha com a Razão Social "
                       required={true}
                       type="text"
                       onChange={(e) => {
@@ -144,6 +146,7 @@ export default function ClienteEdit(props) {
                   <FormGroup>
                     <Label>CNPJ</Label>
                     <Input
+                      placeholder="Preencha com o CNPJ "
                       type="text"
                       onChange={(e) => {
                         setAssociado({
@@ -175,6 +178,7 @@ export default function ClienteEdit(props) {
                   <FormGroup>
                     <Label>CEP</Label>
                     <Input
+                      placeholder="Preencha com o CEP"
                       required={true}
                       type="text"
                       onChange={(e) => {
@@ -208,6 +212,7 @@ export default function ClienteEdit(props) {
                   <FormGroup>
                     <Label>Logradouro</Label>
                     <Input
+                      placeholder="Preencha com o Logradouro"
                       type="text"
                       onChange={(e) => {
                         setAssociado({
@@ -241,6 +246,7 @@ export default function ClienteEdit(props) {
                   <FormGroup>
                     <Label>Número</Label>
                     <Input
+                      placeholder="Preencha com o Número"
                       required={true}
                       type="text"
                       onChange={(e) => {
@@ -276,6 +282,7 @@ export default function ClienteEdit(props) {
                   <FormGroup>
                     <Label>Bairro</Label>
                     <Input
+                      placeholder="Preencha com o Bairro"
                       type="text"
                       onChange={(e) => {
                         setAssociado({
@@ -309,6 +316,7 @@ export default function ClienteEdit(props) {
                   <FormGroup>
                     <Label>Cidade</Label>
                     <Input
+                      placeholder="Preencha com a Cidade "
                       required={true}
                       type="text"
                       onChange={(e) => {
@@ -343,6 +351,7 @@ export default function ClienteEdit(props) {
                   <FormGroup>
                     <Label>UF</Label>
                     <Input
+                      placeholder="Preencha com o UF"
                       required={true}
                       type="text"
                       onChange={(e) => {
@@ -374,6 +383,7 @@ export default function ClienteEdit(props) {
                   <FormGroup>
                     <Label>Localização</Label>
                     <Input
+                      placeholder="Preencha com a Localização "
                       required={true}
                       type="text"
                       onChange={(e) => {

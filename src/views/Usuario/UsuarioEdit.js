@@ -183,7 +183,7 @@ export default function UsuarioEdit(props) {
                     <Label>Nome</Label>
                     <Input
                       type="text"
-                      placeholder="Preencha o nome."
+                      placeholder="Preencha o Nome."
                       onChange={(e) => {
                         setAssociado({
                           ...associado,
@@ -253,7 +253,7 @@ export default function UsuarioEdit(props) {
                     <Input
                       type="text"
                       id="descricao"
-                      placeholder="Preencha o documento..."
+                      placeholder="Preencha o Documento..."
                       onChange={(e) => {
                         setAssociado({
                           ...associado,
@@ -277,7 +277,7 @@ export default function UsuarioEdit(props) {
                     <Label>E-mail</Label>
                     <Input
                       type="email"
-                      placeholder="Preencha o e-mail..."
+                      placeholder="Preencha o E-mail..."
                       onChange={(e) => {
                         setAssociado({
                           ...associado,
@@ -306,7 +306,7 @@ export default function UsuarioEdit(props) {
                     <Label>Telefone Celular</Label>
                     <Input
                       type="text"
-                      placeholder="Preencha o telefone celular..."
+                      placeholder="Preencha o Telefone Celular..."
                       onChange={(e) => {
                         setAssociado({
                           ...associado,
@@ -333,7 +333,7 @@ export default function UsuarioEdit(props) {
                     <Input
                       type="text"
                       id="descricao"
-                      placeholder="Preencha o cpf..."
+                      placeholder="Preencha o CPF..."
                       onChange={(e) => {
                         setAssociado({
                           ...associado,
@@ -431,7 +431,7 @@ export default function UsuarioEdit(props) {
                       <Label>Senha</Label>
                       <Input
                         type="password"
-                        placeholder="Preencha a senha..."
+                        placeholder="Preencha a Senha..."
                         onChange={(e) => {
                           setAssociado({
                             ...associado,
@@ -467,7 +467,7 @@ export default function UsuarioEdit(props) {
                       <Label>Confirmação de Senha</Label>
                       <Input
                         type="password"
-                        placeholder="Confirme a senha..."
+                        placeholder="Confirme a Senha..."
                         onChange={(e) => {
                           setAssociado({
                             ...associado,

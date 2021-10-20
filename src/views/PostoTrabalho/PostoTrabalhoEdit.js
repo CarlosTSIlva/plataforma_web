@@ -122,7 +122,7 @@ export default function PostoTrabalhoEdit(props) {
                     <Label>Localização</Label>
                     <Input
                       type="text"
-                      placeholder="Preencha a localização."
+                      placeholder="Preencha a Localização."
                       onChange={(e) => {
                         setAssociado({
                           ...associado,
@@ -156,7 +156,7 @@ export default function PostoTrabalhoEdit(props) {
                     <Label>Nome</Label>
                     <Input
                       type="text"
-                      placeholder="Preencha o nome."
+                      placeholder="Preencha o Nome."
                       onChange={(e) => {
                         setAssociado({
                           ...associado,

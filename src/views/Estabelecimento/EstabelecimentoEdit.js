@@ -187,10 +187,17 @@ export default function EstabelecimentoEdit(props) {
                     <Label>Cliente</Label>
                     <Select
                       placeholder="Selecione..."
-                      options={optionsStatusAssociado}
-                      value={optionStatusAssociado}
-                      onChange={(selectedOption) => {
-                        setStatusAssociado(selectedOption);
+                      options={cliente}
+                      value={dados}
+                      onChange={(e) => {
+                        setDados(e);
+                        setAssociado({
+                          ...associado,
+                          usuario: {
+                            ...associado.usuario,
+                            id_cliente: e.value,
+                          },
+                        });
                       }}
                       theme={(theme) => ({
                         ...theme,
@@ -208,7 +215,7 @@ export default function EstabelecimentoEdit(props) {
                     <Label>Nome</Label>
                     <Input
                       type="text"
-                      placeholder="Preencha o nome."
+                      placeholder="Preencha o Nome."
                       onChange={(e) => {
                         setAssociado({
                           ...associado,
@@ -241,7 +248,7 @@ export default function EstabelecimentoEdit(props) {
                     <Label>Razão social</Label>
                     <Input
                       type="text"
-                      placeholder="Preencha o razão social."
+                      placeholder="Preencha o Razão Social."
                       onChange={(e) => {
                         setAssociado({
                           ...associado,
@@ -278,7 +285,7 @@ export default function EstabelecimentoEdit(props) {
                     <Input
                       type="text"
                       id="descricao"
-                      placeholder="Preencha o cnpj..."
+                      placeholder="Preencha o CNPJ..."
                       onChange={(e) => {
                         setAssociado({
                           ...associado,
@@ -301,7 +308,7 @@ export default function EstabelecimentoEdit(props) {
                     <Input
                       type="text"
                       id="descricao"
-                      placeholder="Preencha o cep..."
+                      placeholder="Preencha o CEP..."
                       onChange={(e) => {
                         setAssociado({
                           ...associado,
@@ -352,7 +359,7 @@ export default function EstabelecimentoEdit(props) {
                     <Input
                       type="text"
                       id="descricao"
-                      placeholder="Preencha o numero..."
+                      placeholder="Preencha o Número..."
                       onChange={(e) => {
                         setAssociado({
                           ...associado,
@@ -377,7 +384,7 @@ export default function EstabelecimentoEdit(props) {
                     <Input
                       type="text"
                       id="descricao"
-                      placeholder="Preencha o bairro..."
+                      placeholder="Preencha o Bairro..."
                       onChange={(e) => {
                         setAssociado({
                           ...associado,
@@ -402,7 +409,7 @@ export default function EstabelecimentoEdit(props) {
                     <Input
                       type="text"
                       id="descricao"
-                      placeholder="Preencha o cidade..."
+                      placeholder="Preencha o Cidade..."
                       onChange={(e) => {
                         setAssociado({
                           ...associado,
@@ -430,7 +437,7 @@ export default function EstabelecimentoEdit(props) {
                     <Input
                       type="text"
                       id="descricao"
-                      placeholder="Preencha o uf..."
+                      placeholder="Preencha o UF..."
                       onChange={(e) => {
                         setAssociado({
                           ...associado,
@@ -451,7 +458,7 @@ export default function EstabelecimentoEdit(props) {
                     <Input
                       type="text"
                       id="descricao"
-                      placeholder="Preencha o localizacao..."
+                      placeholder="Preencha o Localização..."
                       onChange={(e) => {
                         setAssociado({
                           ...associado,
@@ -467,34 +474,6 @@ export default function EstabelecimentoEdit(props) {
                           : ""
                       }
                       required
-                    />
-                  </FormGroup>
-                </Col>
-                <Col xs="12" sm="6" md="4">
-                  <FormGroup>
-                    <Label>Cliente</Label>
-                    <Select
-                      placeholder="Selecione..."
-                      options={cliente}
-                      value={dados}
-                      onChange={(e) => {
-                        setDados(e);
-                        setAssociado({
-                          ...associado,
-                          usuario: {
-                            ...associado.usuario,
-                            id_cliente: e.value,
-                          },
-                        });
-                      }}
-                      theme={(theme) => ({
-                        ...theme,
-                        colors: {
-                          ...theme.colors,
-                          primary25: "#54ff9d",
-                          primary: "#219653",
-                        },
-                      })}
                     />
                   </FormGroup>
                 </Col>
