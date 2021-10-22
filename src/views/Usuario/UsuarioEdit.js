@@ -47,9 +47,9 @@ export default function UsuarioEdit(props) {
   const [optionSexo, setSexo] = useState({});
   let { id } = useParams();
 
-  useEffect(async () => {
+  useEffect(() => {
     getClients();
-    await loadPage();
+    loadPage();
   }, []);
 
   const getClients = async () => {
@@ -65,7 +65,6 @@ export default function UsuarioEdit(props) {
     if (!id) {
       getAssociado();
       setFormValidate({});
-    } else {
     }
   }
 

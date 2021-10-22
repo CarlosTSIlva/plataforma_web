@@ -35,11 +35,14 @@ export default function ClienteEdit(props) {
   let { id } = useParams();
   const history = useHistory();
 
-  useEffect(async () => {
-    if (id) {
-      const response = await api.get(`/cliente/${id}`);
-      setAssociado({ ...associado, usuario: response.data.data });
-    }
+  useEffect(() => {
+    const getClient = async () => {
+      if (id) {
+        const response = await api.get(`/cliente/${id}`);
+        setAssociado({ ...associado, usuario: response.data.data });
+      }
+      getClient();
+    };
   }, []);
 
   const handleCreate = async () => {

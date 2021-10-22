@@ -50,15 +50,18 @@ export default function PostoTrabalhoEdit(props) {
     setEstabelecimento(dados);
   };
 
-  useEffect(async () => {
+  useEffect(() => {
     getEstabelecimento();
-    if (id) {
-      const response = await api.get(`/postotrabalho/${id}`);
-      console.log("response ", response.data.data);
-      setAssociado({ ...associado, usuario: response.data.data });
-    } else {
-      loadPage();
-    }
+    const ids = async () => {
+      if (id) {
+        const response = await api.get(`/postotrabalho/${id}`);
+        console.log("response ", response.data.data);
+        setAssociado({ ...associado, usuario: response.data.data });
+      } else {
+        loadPage();
+      }
+      ids();
+    };
   }, []);
 
   async function loadPage() {
